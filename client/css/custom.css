@@ -1,8 +1,9 @@
 body{
-    min-height:100vh;
+    max-height:100vh;
     background-image: url('map.jpg');
     background-size:cover;
     background-repeat: no-repeat; 
+    background-attachment: fixed;
 }
 
 .vertical-center {
@@ -31,4 +32,14 @@ body{
 
 .panel-title {
     font-weight: bold;
+}
+
+.panel-body>img, business>img {
+    max-width: 768px;
+    width: 100%;
+}
+
+#disclaimer {
+    font-style: italic;
+    color:#d43f3a;
 }

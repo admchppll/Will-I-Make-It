@@ -8,13 +8,13 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/custom.css" rel="stylesheet">
 </head>
-<body>
+<body scrollable>
 <div id="home" class="container-fluid vertical-center">
     <div class="container">
         <h1>Will I Get There?</h1>
         <form>
         <div class="input-group">
-            <input type="text" class="form-control" aria-label="Enter location here...">
+            <input type="text" class="form-control" aria-label="location" id="location" placeholder="Enter location here...">
               <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></button>
                 <ul class="dropdown-menu dropdown-menu-right">
@@ -27,7 +27,7 @@
         </div>
         <div class="btn-group" role="group" aria-label="search" id="formBtn">
           <button type="button" class="btn btn-default">Search</button>
-          <button type="button" class="btn btn-default">Clear</button>
+          <button type="reset" class="btn btn-default">Clear</button>
         </div>
         </form>
     </div>
@@ -35,18 +35,20 @@
 <div id="results" class="container-fluid">
     <div class="container">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-danger">
-          <div class="panel-title">Business Name 1</div>
-          <div class="panel-body">
-              <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
-          </div>
-        </div>
+            <div class="panel panel-danger">
+              <div class="panel-title">Business Name 1</div>
+              <div class="panel-body">
+                  <img src="outside.jpg">
+                  <p>Small Description Here</p>
+                  <button class="btn btn-danger">Select</button>
+              </div>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="panel panel-danger">
           <div class="panel-title">Business Name 2</div>
           <div class="panel-body">
+              <img src="outside.jpg">
               <p>Small Description Here</p>
               <button class="btn btn-danger">Select</button>
           </div>
@@ -56,6 +58,7 @@
         <div class="panel panel-danger">
           <div class="panel-title">Business Name 3</div>
           <div class="panel-body">
+              <img src="outside.jpg">
               <p>Small Description Here</p>
               <button class="btn btn-danger">Select</button>
           </div>
@@ -63,12 +66,98 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="panel panel-danger ">
-          <div class="panel-title">Business Name 1</div>
+          <div class="panel-title">Business Name 4</div>
           <div class="panel-body">
+              <img src="outside.jpg">
               <p>Small Description Here</p>
               <button class="btn btn-danger">Select</button>
           </div>
         </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="panel panel-danger">
+              <div class="panel-title">Business Name 1</div>
+              <div class="panel-body">
+                  <img src="outside.jpg">
+                  <p>Small Description Here</p>
+                  <button class="btn btn-danger">Select</button>
+              </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-danger">
+          <div class="panel-title">Business Name 2</div>
+          <div class="panel-body">
+              <img src="outside.jpg">
+              <p>Small Description Here</p>
+              <button class="btn btn-danger">Select</button>
+          </div>
+        </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-danger">
+          <div class="panel-title">Business Name 3</div>
+          <div class="panel-body">
+              <img src="outside.jpg">
+              <p>Small Description Here</p>
+              <button class="btn btn-danger">Select</button>
+          </div>
+        </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-danger ">
+          <div class="panel-title">Business Name 4</div>
+          <div class="panel-body">
+              <img src="outside.jpg">
+              <p>Small Description Here</p>
+              <button class="btn btn-danger">Select</button>
+          </div>
+        </div>
+        </div>
+    </div>
+</div>
+<div id="final" class="container-fluid">
+    <div class="container">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h1>Results</h1>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">            
+            <div class="panel panel-danger ">
+                <div class="panel-body">
+                    <h2>Business 1</h2>
+                    <h4>Category</h4>
+                    <img src="outside.jpg">
+                    <h3><span>Risk Rating</span><br/>46.5%</h3>
+                    <p>This will be a description paragraph with text retrieved from the Yelp API about the business selected.</p>
+                    <img src="stars.JPG" style="width:50%;">
+                    <p>Address goes here</p>
+                    <p><span class="glyphicon glyphicon-phone-alt"></span>011111101111</p>
+                    <p>YELP link</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="panel panel-danger ">
+                <div class="panel-body">
+                    <h2>Business 2</h2>
+                    <h4>Category</h4>
+                    <img src="outside.jpg">
+                    <h3><span>Risk Rating</span><br/>68.74%</h3>
+                    <p>This will be a description paragraph with text retrieved from the Yelp API about the business selected.</p>
+                    <img src="stars.JPG" style="width:50%;">
+                    <p>Address goes here</p>
+                    <p><span class="glyphicon glyphicon-phone-alt"></span>011111101111</p>
+                    <p>YELP link</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-danger ">
+                <div class="panel-body">
+                    <h1>Recommendations</h1>
+                    <p>For your safety, we recommend you visit Business 1 however Business 2 appears to have better ratings, so may be worth the risk...<br/><br/><span id="disclaimer">Please note: Under no circumstances does this site (or it's owner's) accept responsibility for your safety should you follow advice or not. You visit the business of your choice at your own will.</span></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
