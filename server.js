@@ -2,7 +2,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cdlApi = require('./server/cdlApi.js'),
     yelp = require("./server/yelpApi.js"),
-    app = express()
+    app = express(),
     router = express.Router();
 
 var SERVER_PORT = process.env.PORT || 3000;
