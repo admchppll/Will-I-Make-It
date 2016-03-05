@@ -22,6 +22,12 @@
   },
   "homepage": "https://github.com/seckwei/studenthack#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "lodash": "^4.6.1",
+    "mathjs": "^3.0.0",
+    "request": "^2.69.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.1"
   }
 }
