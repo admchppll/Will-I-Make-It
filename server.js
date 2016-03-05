@@ -24,13 +24,13 @@ app.use(express.static('client'));
 app.use('/api', router);
 
 router.post('/yelp', function(req, res) {
+    console.log(req.body);
     var location =  req.body.location;
     var category = req.body.category;
 
     //console.log(BASE_URL + yelp.buildStr());  // use if the request fails
     //console.log(YELP_OPTIONS);
-    request( YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS, category, location), function(err, yelpRes, body){
-        console.log(body);
+    request(YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS, category, location), function(err, yelpRes, body){
         var response = JSON.parse(body);
         res.json(JSON.stringify(yelp.toResults(response)));
     });

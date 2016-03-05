@@ -1,5 +1,4 @@
-var yelpResults = JSON.parse('[{"ID":1,"Name":"Adam 1", "Img":"outside.jpg"},{"ID":2,"Name":"Adam 2", "Img":"outside.jpg"},{"ID":3,"Name":"Adam 3", "Img":"outside.jpg"},{"ID":4,"Name":"Adam 4", "Img":"outside.jpg"},{"ID":5,"Name":"Adam 5", "Img":"outside.jpg"},{"ID":6,"Name":"Adam 6", "Img":"outside.jpg"},{"ID":7,"Name":"Adam 7", "Img":"outside.jpg"},{"ID":8,"Name":"Adam 8", "Img":"outside.jpg"}]'); //Object for storing results of query
-
+var yelpResults;
 var cdlResults;
 
 var object1 = null, object2 = null; //Storing the 2 businesses selected
@@ -38,7 +37,7 @@ function generateContent(iteration){
         upperBound = yelpResults.length;
     }
     for(var i = lowerBound; i < upperBound; i++){
-        html += generateResult(yelpResults[i].ID, yelpResults[i].Name, yelpResults[i].Img, "Short description goes here adam!!");
+        html += generateResult(i, yelpResults[i].name, yelpResults[i].imgUrl, yelpResults[i].comment);
     }
 
     if(iteration == 0){
@@ -117,6 +116,7 @@ $("#searchBtn").bind("click", function(){
     var location = $('#location').val();
     var category = $('.activeCat').attr("id");
     var json = '{"location":"' + location + '", "category":"' + category + '"}';
+    //console.log(json);
     $.ajax({
         url: '/api/yelp',
         method:'post',

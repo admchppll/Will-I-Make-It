@@ -62,6 +62,7 @@ function toResultsLayout(jsonResults) {
         if (!!business.id){
             returnResultset[index] = {
                 id: business.id,
+                name: business.name,
                 url: business.url,
                 imgUrl : business.image_url,
                 phone: business.display_phone,
