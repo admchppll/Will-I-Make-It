@@ -52,6 +52,7 @@ router.post('/cdl', function (req, res) {
 
     if(locations instanceof Array){
         res.writeHead(200, {'Content-Type': 'application/json'});
+        console.log('Sent data to CDL...');
         cdlApi(locations).then(function(data){
             console.log(data);
             console.log(locations);

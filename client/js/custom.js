@@ -125,11 +125,15 @@ $("#searchBtn").bind("click", function(){
         data: json,
         success: function(result){
             yelpResults = JSON.parse(result);
-            $('#home').removeClass("vertical-center");
-            $('#formBtn').addClass("normal-view");
-            $('#logo').addClass("sm-logo");
-            generateContent(0);
-            $('#results').removeClass("hide");
+            if(yelpResults){
+                $('#home').removeClass("vertical-center");
+                $('#formBtn').addClass("normal-view");
+                $('#logo').addClass("sm-logo");
+                generateContent(0);
+                $('#results').removeClass("hide");
+            } else {
+                console.log('No businesses found');
+            }
         }, fail: function(result) {
             //TODO: signal to user to repeat input, preferably without the alert
             alert('omgno :( request failed)');
@@ -182,3 +186,8 @@ $('#procBtn').bind("click", function(){
         //Validation message disable button ?
     }
 });
+
+$('#back').bind("click", function(){
+    $('#final').addClass("hide");
+    $("#results").removeClass("hide")
+})

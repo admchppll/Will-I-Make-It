@@ -19,6 +19,7 @@ module.exports = function run(locations) {
 }
 
 function getLocationData (location) {
+    //console.log(location);
     return new Promise(function(resolve, reject){
         request({
             url: apiURL,
@@ -54,32 +55,36 @@ function createRequestData (lat, lon) {
 
 function calculateRisk (data, resolve) {
     var cdlData = JSON.parse(data.cdlData).hits.hits;
-    Object.defineProperty(cdlData, 'getArray', { value : getArray });
+    if(cdlData.length > 0) {
+        Object.defineProperty(cdlData, 'getArray', { value : getArray });
 
-    var count = cdlData.length,
+        var count = cdlData.length,
         years = cdlData.getArray('year'),
         latestYear = Math.max.apply(null, years),
         yearRisk = calcYearRisk(years, latestYear); // final
 
 
-    var casualties = cdlData.getArray('numberofCasualties'),
+        var casualties = cdlData.getArray('numberofCasualties'),
         avgCasualties = math.mean(removeSpike(casualties)),
         casualtiesRisk = calcCasualitiesRisk(avgCasualties); // final
 
-    var severities = cdlData.getArray('accidentSeverity');
-    var severityRisk = calcSeverityRisk(severities); // final
+        var severities = cdlData.getArray('accidentSeverity');
+        var severityRisk = calcSeverityRisk(severities); // final
 
-    var vehicles = cdlData.getArray('numberofVehicles'),
+        var vehicles = cdlData.getArray('numberofVehicles'),
         avgVehicles = math.mean(removeSpike(vehicles)),
         vehiclesRisk = calcVehiclesRisk(avgVehicles); // final
 
-    var finalRisk = (yearRisk + casualtiesRisk + severityRisk + vehiclesRisk) * 10;
+        var finalRisk = (yearRisk + casualtiesRisk + severityRisk + vehiclesRisk) * 10;
 
-    // console.log(years, yearRisk);
-    // console.log(casualties, casualtiesRisk);
-    // console.log(severities, severityRisk);
-    // console.log(vehicles, vehiclesRisk);
-    resolve({ risk : finalRisk, ID : data.ID });
+        // console.log(years, yearRisk);
+        // console.log(casualties, casualtiesRisk);
+        // console.log(severities, severityRisk);
+        // console.log(vehicles, vehiclesRisk);
+        resolve({ risk : finalRisk, ID : data.ID });
+    } else {
+        resolve(null);
+    }
 }
 
 function removeSpike (data) {
@@ -101,8 +106,8 @@ function calcYearRisk (years, latestYear) {
         diffLatestYear = thisYear - latestYear,
         freqOfLatestYear = years.join(' ').match(new RegExp(latestYear.toString(), 'gi')).length;
 
-    var diffYearMult = -(diffLatestYear * 0.8),
-        freqYearMult = freqOfLatestYear * 1.5;
+    var diffYearMult = -(diffLatestYear * 0.7),
+        freqYearMult = freqOfLatestYear;
 
     return diffYearMult + freqYearMult;
 }
@@ -112,28 +117,28 @@ function calcCasualitiesRisk (avgCasualties) {
 }
 
 function calcSeverityRisk (severities) {
-    var nSlight = 0,
-        nSerious = 0,
-        slightPerc,
-        seriousPerc;
+    //console.log(severities);
+    var slight = 0,
+        serious = 0,
+        fatal = 0
+        count = severities.length || 1;
 
     severities.forEach(function(record){
         switch (record.toLowerCase()) {
-            case 'slight': nSlight++;
+            case 'slight': slight++;
                 break;
-            case 'serious': nSerious++;
+            case 'serious': serious++;
+                break;
+            case 'fatal': fatal++;
                 break;
         }
     });
 
-    slightPerc = nSlight / severities.length;
-    seriousPerc = nSerious / severities.length;
+    slight = slight / severities.length;
+    serious = serious / severities.length;
+    fatal = fatal / severities.length;
 
-    if (seriousPerc !== 0) {
-        return seriousPerc*2 + 1;
-    } else {
-        return slightPerc + 1
-    }
+    return fatal + serious*0.8 + slight*0.5;
 }
 
 function calcVehiclesRisk (avgVehicles) {
