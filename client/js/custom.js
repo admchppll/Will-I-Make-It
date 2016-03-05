@@ -10,11 +10,15 @@ e.preventDefault();
 
 function loadCategories ()
 {
-     $.getJSON("categories.json", function(data) {
+    var temp = "";
+    $.getJSON("categories.json", function(data) {
          for(var i = 0; i < data.length;i++){
-             
+             if(data[i].parents.length === 0){
+                 temp = "<li><a href='javascript:void(0)' id='" + data[i].alias + "'>" + data[i].title + "</a></li>";
+                 $('#catDrop').append($.parseHTML(temp));
+             }
          }
-     }
+     });
 }
 
 function generateResult(id, businessName, imgURL, description) {
