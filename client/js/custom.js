@@ -30,8 +30,6 @@ function generateContent(iteration){
     var resPer = 12;
     var lowerBound = iteration * resPer;
     var upperBound = lowerBound + resPer;
-    console.log(lowerBound);
-    console.log(upperBound);
 
     if (upperBound >= yelpResults.length){
         upperBound = yelpResults.length;
@@ -129,6 +127,7 @@ $("#searchBtn").bind("click", function(){
             yelpResults = JSON.parse(result);
             $('#home').removeClass("vertical-center");
             $('#formBtn').addClass("normal-view");
+            $('#logo').addClass("sm-logo");
             generateContent(0);
             $('#results').removeClass("hide");
         }
