@@ -30,8 +30,6 @@ function generateContent(iteration){
     var resPer = 12;
     var lowerBound = iteration * resPer;
     var upperBound = lowerBound + resPer;
-    console.log(lowerBound);
-    console.log(upperBound);
 
     if (upperBound >= yelpResults.length){
         upperBound = yelpResults.length;
