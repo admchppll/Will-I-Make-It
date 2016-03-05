@@ -16,6 +16,9 @@ function loadCategories() {
 }
 
 function generateResult(id, businessName, imgURL, description) {
+    if (imgURL === undefined) {
+        imgURL = 'https://placeholdit.imgix.net/~text?txtsize=20&txt=215%C3%97215&w=215&h=215';
+    }
     //generates the html content for the results
     var output = '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" id="bus-' + id + '"><div class="panel panel-danger"><div class="panel-title">';
     output += businessName + '</div><div class="panel-body"><img src="';
@@ -37,7 +40,7 @@ function generateContent(iteration){
     for(var i = lowerBound; i < upperBound; i++){
         html += generateResult(i, yelpResults[i].name, yelpResults[i].imgUrl, yelpResults[i].comment);
     }
-
+    
     if(iteration == 0){
         $('#resultContent').html($.parseHTML(html));
     } else {
