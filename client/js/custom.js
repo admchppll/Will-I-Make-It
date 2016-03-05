@@ -129,6 +129,7 @@ $("#searchBtn").bind("click", function(){
                 $('#home').removeClass("vertical-center");
                 $('#formBtn').addClass("normal-view");
                 $('#logo').addClass("sm-logo");
+                $('#home>div>p').addClass("hide");
                 generateContent(0);
                 $('#results').removeClass("hide");
             } else {
@@ -191,3 +192,5 @@ $('#back').bind("click", function(){
     $('#final').addClass("hide");
     $("#results").removeClass("hide")
 })
+
+
