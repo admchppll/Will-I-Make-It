@@ -1,6 +1,9 @@
 var express = require('express'),
-    app = express()
-    router = express.Router();
+    app = express(),
+    router = express.Router(),
+    yelp = require("./server/yelpApi.js");
+    
+
 
 var SERVER_PORT = process.env.PORT || 3000;
 
@@ -9,6 +12,8 @@ var SERVER_PORT = process.env.PORT || 3000;
     res.writeHead(200, {'Content-Type' : 'application/json'});
     res.end(JSON.stringify({ obj : 'prop' }));
 });*/
+
+app.use(express.static('client'));
 
 app.use('/api', router);
 
