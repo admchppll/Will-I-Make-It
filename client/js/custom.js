@@ -1,4 +1,7 @@
-var allResults = JSON.parse('[{"ID":1,"Name":"Adam 1", "Img":"outside.jpg"},{"ID":2,"Name":"Adam 2", "Img":"outside.jpg"},{"ID":3,"Name":"Adam 3", "Img":"outside.jpg"},{"ID":4,"Name":"Adam 4", "Img":"outside.jpg"},{"ID":5,"Name":"Adam 5", "Img":"outside.jpg"},{"ID":6,"Name":"Adam 6", "Img":"outside.jpg"},{"ID":7,"Name":"Adam 7", "Img":"outside.jpg"},{"ID":8,"Name":"Adam 8", "Img":"outside.jpg"}]'); //Object for storing results of query
+var yelpResults = JSON.parse('[{"ID":1,"Name":"Adam 1", "Img":"outside.jpg"},{"ID":2,"Name":"Adam 2", "Img":"outside.jpg"},{"ID":3,"Name":"Adam 3", "Img":"outside.jpg"},{"ID":4,"Name":"Adam 4", "Img":"outside.jpg"},{"ID":5,"Name":"Adam 5", "Img":"outside.jpg"},{"ID":6,"Name":"Adam 6", "Img":"outside.jpg"},{"ID":7,"Name":"Adam 7", "Img":"outside.jpg"},{"ID":8,"Name":"Adam 8", "Img":"outside.jpg"}]'); //Object for storing results of query
+
+var cdlResults;
+
 var object1 = null, object2 = null; //Storing the 2 businesses selected
 
 function loadCategories() {
@@ -23,17 +26,29 @@ function generateResult(id, businessName, imgURL, description) {
     return output;
 }
 
-function generateContent(){
+function generateContent(iteration){
     var html = "";
+    var resPer = 12;
+    var lowerBound = iteration * resPer;
+    var upperBound = lowerBound + resPer;
+    console.log(lowerBound);
+    console.log(upperBound);
     
-    for(var i = 0; i < allResults.length; i++){
-        html += generateResult(allResults[i].ID, allResults[i].Name, allResults[i].Img, "Short description goes here adam!!");
+    if (upperBound >= yelpResults.length){
+        upperBound = yelpResults.length;
+    }
+    for(var i = lowerBound; i < upperBound; i++){
+        html += generateResult(yelpResults[i].ID, yelpResults[i].Name, yelpResults[i].Img, "Short description goes here adam!!");
     }
     
-    $('#resultContent').html($.parseHTML(html));
+    if(iteration == 0){
+        $('#resultContent').html($.parseHTML(html));
+    } else {
+        $('#resultContent').append($.parseHTML(html));
+    }
 }
 
-var long, lat;
+/*var long, lat;
 function validatePostCode(postcode) {
     var url = "http://api.postcodes.io/postcodes?q=" + postcode; 
     var result = false;
@@ -51,18 +66,18 @@ function validatePostCode(postcode) {
                      
         });
       
-}
+}*/
 
 function addSelected (id) {
     //var id = ((this.id).split("-"))[1]; //id of item in full array
     if(object1 === null) {
-        object1 = allResults[id-1];
-        $('#selected1').text(allResults[id-1].Name);
+        object1 = yelpResults[id-1];
+        $('#selected1').text(yelpResults[id-1].Name);
         $('#remove1').removeClass("hide");
         $('#bus-'+(id)).addClass("hide");
     } else if (object2 === null) {
-        object2 = allResults[id-1];
-        $('#selected2').text(allResults[id-1].Name);
+        object2 = yelpResults[id-1];
+        $('#selected2').text(yelpResults[id-1].Name);
         $('#remove2').removeClass("hide");
         $('#bus-'+(id)).addClass("hide");
     }
@@ -81,8 +96,6 @@ function removeSelected(object) {
         $('#selected2').text("No business is currently selected");
         $('#remove2').addClass("hide");
     }
-    console.log(object1);
-    console.log(object2);
 }
 
 function removeAll() {
@@ -99,13 +112,32 @@ function switchCat(id){
     $('#catBtn').html($.parseHTML(temp));
 }
 
+//show screen 2 now
 $("#searchBtn").bind("click", function(){
     var location = $('#location').val();
     var category = $('.activeCat').attr("id");
     var json = '{"location":"' + location + '", "category":"' + category + '"}';
     
+    //call for api results to set yelpResults
     $('#home').removeClass("vertical-center");
     $('#formBtn').addClass("normal-view");
-    generateContent();
+    generateContent(0);
     $('#results').removeClass("hide");
+});
+
+//moving screen 2 to 3 
+$('#procBtn').bind("click", function(){
+    var json = "";
+    
+    if(object1 != null && object2 != null){
+        $('#results').addClass("hide");
+        $('#final').removeClass('hide');
+        
+        json = '[{"ID":' + object1.ID + ', "lat":"' + object1.Latitude + '", "lon":"' + object1.Longitude + '"},'
+        json += '{"ID":' + object2.ID + ', "lat":"' + object2.Latitude + '", "lon":"' + object2.Longitude + '"}]';
+        
+        //call to lims page
+    }else{
+        //Validation message disable button ? 
+    }
 });

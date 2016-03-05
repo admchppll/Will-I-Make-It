@@ -56,7 +56,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="selectionBtnGrp">
             <div class="pull-right">
-                <button class="btn btn-danger">Proceed</button>
+                <button class="btn btn-danger" id="procBtn">Proceed</button>
                 <button class="btn btn-default" onclick="javascript:removeAll()">Clear All</button>
             </div>
         </div>
@@ -68,7 +68,7 @@
         </div>
     </div>
 </div>
-<div id="final" class="container-fluid">
+<div id="final" class="container-fluid hide">
     <div class="container">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="panel panel-danger ">
@@ -77,6 +77,9 @@
                     <p>For your safety, we recommend you visit Business 1 however Business 2 appears to have better ratings, so may be worth the risk...<br/><br/><span id="disclaimer">Please note: Under no circumstances does this site (or it's owner's) accept responsibility for your safety should you follow advice or not. You visit the business of your choice at your own will.</span></p>
                 </div>
             </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <button class="btn btn-danger" id="back">Back To Results</button>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">            
             <div class="panel panel-danger ">
