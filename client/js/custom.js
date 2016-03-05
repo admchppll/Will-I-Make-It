@@ -17,7 +17,7 @@ function loadCategories() {
 
 function generateResult(id, businessName, imgURL, description) {
     //generates the html content for the results
-    var output = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-' + id + '"><div class="panel panel-danger"><div class="panel-title">';
+    var output = '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" id="bus-' + id + '"><div class="panel panel-danger"><div class="panel-title">';
     output += businessName + '</div><div class="panel-body"><img src="';
     output += imgURL + '"><p>';
     output += description + '</p><button class="btn btn-danger result" id="res-' + id + '"  onclick="addSelected('+id+')">Select</button></div></div></div>';
