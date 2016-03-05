@@ -32,10 +32,13 @@ router.post('/yelp', function(req, res) {
     //console.log(YELP_OPTIONS);
     request(completeURL, function(err, yelpRes, body){
         var response = JSON.parse(body);
-        var returnVal = JSON.stringify(yelp.toResults(response));
-        if (returnVal === null) {
-            
+        var returnVal = yelp.toResults(response);
+        console.log(returnVal);
+        if (returnVal == null) { // String null because FUCK STRINGIFY
+            res.writeHead(404, {'Content-Type': 'text/plain'});
+            res.end('No Businesses Found, get REKT');
         } else {
+            console.log("shouldnt get here if 0")
             res.json(JSON.stringify(yelp.toResults(response)));
         }
     });
