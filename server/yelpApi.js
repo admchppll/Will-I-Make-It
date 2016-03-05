@@ -25,7 +25,7 @@ function buildRequest(options, category, addressString, offset ){
     } else {
         requestParams.location = 'Oldham'; // TODO: Test code remove
     }
-    console.log(options, category, addressString, offset);
+    //console.log(options, category, addressString, offset);
     requestParams.limit = options.limit;
     requestParams.sortMode = options.sortMode;
     requestParams.radiusMeters = options.radiusMeters;
@@ -59,23 +59,20 @@ function toResultsLayout(jsonResults) {
     var returnResultset = []
     console.log(businesses.length + ' Businesses Found');
     businesses.forEach(function(business, index){
-        for(var bizKey in business) {
-            if (!!bizKey.id){
-                returnResultset[index] = {
-                    id: bizKey.id,
-                    url: bizKey.url,
-                    imgUrl : bizKey.image_url,
-                    phone: bizKey.display_phone,
-                    starsUrl : bizKey.rating_img_url_large,
-                    comment : bizKey.snippet_text,
-                    isClosed : bizKey.is_closed,
-                    address: bizKey.location.display_address,
-                    lat:bizKey.location.coordinate.latitude,
-                    lon:bizKey.location.coordinate.longitude
-                }
-            } 
-        }
-        
+        if (!!business.id){
+            returnResultset[index] = {
+                id: business.id,
+                url: business.url,
+                imgUrl : business.image_url,
+                phone: business.display_phone,
+                starsUrl : business.rating_img_url_large,
+                comment : business.snippet_text,
+                isClosed : business.is_closed,
+                address: business.location.display_address,
+                lat:business.location.coordinate.latitude,
+                lon:business.location.coordinate.longitude
+            }
+        } 
     });
     return returnResultset;
 }

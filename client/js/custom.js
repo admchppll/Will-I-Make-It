@@ -117,12 +117,21 @@ $("#searchBtn").bind("click", function(){
     var location = $('#location').val();
     var category = $('.activeCat').attr("id");
     var json = '{"location":"' + location + '", "category":"' + category + '"}';
-    
+    $.ajax({
+        url: '/yelp',
+        method:'get',
+        contentType: 'application/json',
+        body: json,
+        success: function(result){
+            yelpResults = JSON.parse(result);
+            $('#home').removeClass("vertical-center");
+            $('#formBtn').addClass("normal-view");
+            generateContent(0);
+            $('#results').removeClass("hide");
+        }
+    });
     //call for api results to set yelpResults
-    $('#home').removeClass("vertical-center");
-    $('#formBtn').addClass("normal-view");
-    generateContent(0);
-    $('#results').removeClass("hide");
+    
 });
 
 //moving screen 2 to 3 

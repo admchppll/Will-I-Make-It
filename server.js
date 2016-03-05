@@ -29,14 +29,14 @@ app.use('/api', router);
     
 app.get('/yelp', function(req, res) {
 
-    //var location =  req.body[0];
-   // var category = req.body[1];
+    var location =  req.body.location;
+    var category = req.body.category;
    
     //console.log(BASE_URL + yelp.buildStr());  // use if the request fails
     console.log(YELP_OPTIONS);
-    request( YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS), function(err, yelpRes, body){ 
+    request( YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS, category, location), function(err, yelpRes, body){ 
         var response = JSON.parse(body);    
-        res.json(JSON.stringify(yelp.toResults));
+        res.json(JSON.stringify(yelp.toResults(response))); 
         
     });
     
