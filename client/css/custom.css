@@ -43,3 +43,11 @@ body{
     font-style: italic;
     color:#d43f3a;
 }
+
+.removeSelect{
+    display: inline;
+}
+
+#selected1, #selected2 {
+    display:inline;
+}

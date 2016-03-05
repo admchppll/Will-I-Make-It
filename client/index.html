@@ -13,7 +13,7 @@
     <div class="container">
         <h1>Will I Get There?</h1>
         <form>
-        <div class="input-group">
+        <div class="input-group col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             <input type="text" class="form-control" aria-label="location" id="location" placeholder="Enter location here...">
               <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="catBtn">Categories <span class="caret"></span></button>
@@ -31,102 +31,116 @@
 </div> 
 <div id="results" class="container-fluid">
     <div class="container">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 selectedBusiness">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="panel panel-danger ">
                 <div class="panel-body">
-                    <p>No business is currently selected</p>
+                    <h1>Choose Businesses</h1>
+                    <p>Select 2 of the businesses below and then press the confirm at the bottom of the page to see the results of the comparison. You can change your selection at any point before the comparison.</p>
                 </div>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 selectedBusiness">
             <div class="panel panel-danger ">
                 <div class="panel-body">
-                    <p>No business is currently selected</p>
+                    <p id="selected1">No business is currently selected</p>
+                    <a class="removeSelect hide" href="javascript:void(0)" onclick="javascript:removeSelected(1)" id="remove1"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Remove</a>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 selectedBusiness">
+            <div class="panel panel-danger ">
+                <div class="panel-body">
+                    <p id="selected2">No business is currently selected</p>
+                    <a class="removeSelect hide" href="javascript:void(0)" onclick="javascript:removeSelected(2)" id="remove2"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Remove</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-1">
             <div class="panel panel-danger">
               <div class="panel-title">Business Name 1</div>
               <div class="panel-body">
                   <img src="outside.jpg">
                   <p>Small Description Here</p>
-                  <button class="btn btn-danger">Select</button>
+                  <button class="btn btn-danger result" id="res-1">Select</button>
               </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-2">
         <div class="panel panel-danger">
           <div class="panel-title">Business Name 2</div>
           <div class="panel-body">
               <img src="outside.jpg">
               <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
+              <button class="btn btn-danger result" id="res-2">Select</button>
           </div>
         </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-3">
         <div class="panel panel-danger">
           <div class="panel-title">Business Name 3</div>
           <div class="panel-body">
               <img src="outside.jpg">
               <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
+              <button class="btn btn-danger result" id="res-3">Select</button>
           </div>
         </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-4">
         <div class="panel panel-danger ">
           <div class="panel-title">Business Name 4</div>
           <div class="panel-body">
               <img src="outside.jpg">
               <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
+              <button class="btn btn-danger result" id="res-4">Select</button>
           </div>
         </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-5">
             <div class="panel panel-danger">
-              <div class="panel-title">Business Name 1</div>
+              <div class="panel-title">Business Name 5</div>
               <div class="panel-body">
                   <img src="outside.jpg">
                   <p>Small Description Here</p>
-                  <button class="btn btn-danger">Select</button>
+                  <button class="btn btn-danger result" id="res-5">Select</button>
               </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-6">
         <div class="panel panel-danger">
-          <div class="panel-title">Business Name 2</div>
+          <div class="panel-title">Business Name 6</div>
           <div class="panel-body">
               <img src="outside.jpg">
               <p>Small Description Here</p>
-              <button class="btn btn-danger result" id="adam1">Select</button>
+              <button class="btn btn-danger result" id="res-6">Select</button>
           </div>
         </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-7">
         <div class="panel panel-danger">
-          <div class="panel-title">Business Name 3</div>
+          <div class="panel-title">Business Name 7</div>
           <div class="panel-body">
               <img src="outside.jpg">
               <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
+              <button class="btn btn-danger result" id="res-7">Select</button>
           </div>
         </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-8">
         <div class="panel panel-danger ">
-          <div class="panel-title">Business Name 4</div>
+          <div class="panel-title">Business Name 8</div>
           <div class="panel-body">
               <img src="outside.jpg">
               <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
+              <button class="btn btn-danger result" id="res-8">Select</button>
           </div>
         </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <button style="margin:0 auto;" class="btn btn-danger center-block">Load More</button>
+            <button class="btn btn-danger center-block">Load More</button>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <button class="btn btn-danger pull-right" onclick="javascript:removeAll()">Clear All</button>
+            <button class="btn btn-danger pull-right">Proceed</button>
         </div>
     </div>
 </div>
