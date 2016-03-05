@@ -27,12 +27,17 @@ router.post('/yelp', function(req, res) {
     console.log(req.body);
     var location =  req.body.location;
     var category = req.body.category;
-
+    var completeURL = YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS, category, location)
     //console.log(BASE_URL + yelp.buildStr());  // use if the request fails
     //console.log(YELP_OPTIONS);
-    request(YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS, category, location), function(err, yelpRes, body){
+    request(completeURL, function(err, yelpRes, body){
         var response = JSON.parse(body);
-        res.json(JSON.stringify(yelp.toResults(response)));
+        var returnVal = JSON.stringify(yelp.toResults(response));
+        if (returnVal === null) {
+            
+        } else {
+            res.json(JSON.stringify(yelp.toResults(response)));
+        }
     });
 
     //res.writeHead(200, {'Content-Type': 'text/plain'});

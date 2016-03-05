@@ -57,25 +57,28 @@ function toHeaderString(options, category, addressString, offset){
 function toResultsLayout(jsonResults) {
     var businesses = jsonResults.businesses;
     var returnResultset = []
-    console.log(businesses.length + ' Businesses Found');
-    businesses.forEach(function(business, index){
-        if (!!business.id){
-            returnResultset[index] = {
-                id: business.id,
-                name: business.name,
-                url: business.url,
-                imgUrl : business.image_url,
-                phone: business.display_phone,
-                starsUrl : business.rating_img_url_large,
-                comment : business.snippet_text,
-                isClosed : business.is_closed,
-                address: business.location.display_address,
-                lat:business.location.coordinate.latitude,
-                lon:business.location.coordinate.longitude
+    console.log(jsonResults.total + ' Businesses Found');
+    if (jsonResults.total > 0 ) {
+        businesses.forEach(function(business, index){
+            if (!!business.id){
+                returnResultset[index] = {
+                    id: business.id,
+                    name: business.name,
+                    url: business.url,
+                    imgUrl : business.image_url,
+                    phone: business.display_phone,
+                    starsUrl : business.rating_img_url_large,
+                    comment : business.snippet_text,
+                    isClosed : business.is_closed,
+                    address: business.location.display_address,
+                    lat:business.location.coordinate.latitude,
+                    lon:business.location.coordinate.longitude
+                }
             }
-        }
-    });
-    return returnResultset;
+        });
+        return returnResultset;
+    } 
+        return null;
 }
 
 module.exports = {
