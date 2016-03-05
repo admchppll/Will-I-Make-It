@@ -59,3 +59,32 @@ body{
 #selectionBtnGrp {
     margin-bottom:1em;
 }
+
+#home>div>h1,#home>div>p{
+    white-space: nowrap;
+    overflow: hidden;
+    width: 30em;
+    margin:auto;
+    animation: type 4s steps(60, end);  
+}
+#home>div>p{
+    width:60em;
+}
+
+@keyframes type{ 
+    from { width: 0; } 
+} 
+
+@keyframes type2{
+  0%{width: 0;}
+  50%{width: 0;}
+  100%{ width: 100; } 
+} 
+
+@keyframes blink{
+  to{opacity: .0;}
+}
+
+.sm-logo {
+    max-width:400px;
+}

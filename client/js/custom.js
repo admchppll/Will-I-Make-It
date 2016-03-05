@@ -129,6 +129,7 @@ $("#searchBtn").bind("click", function(){
             yelpResults = JSON.parse(result);
             $('#home').removeClass("vertical-center");
             $('#formBtn').addClass("normal-view");
+            $('#logo').addClass("sm-logo");
             generateContent(0);
             $('#results').removeClass("hide");
         }
