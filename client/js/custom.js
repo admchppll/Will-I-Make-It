@@ -116,7 +116,7 @@ $("#searchBtn").bind("click", function(){
     var location = $('#location').val();
     var category = $('.activeCat').attr("id");
     var json = '{"location":"' + location + '", "category":"' + category + '"}';
-    console.log(json);
+    console.log(json); //TODO: Remove when finished
     $.ajax({
         url: '/api/yelp',
         type:'POST',
@@ -130,10 +130,11 @@ $("#searchBtn").bind("click", function(){
             $('#logo').addClass("sm-logo");
             generateContent(0);
             $('#results').removeClass("hide");
+        }, fail: function(result) {
+            //TODO: signal to user to repeat input, preferably without the alert
+            alert('omgno :( request failed)');
         }
     });
-    //call for api results to set yelpResults
-
 });
 
 //moving screen 2 to 3
