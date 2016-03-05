@@ -1,6 +1,7 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     cdlApi = require('./server/cdlApi.js'),
+    yelp = require("./server/yelpApi.js"),
     app = express()
     router = express.Router();
 
@@ -12,6 +13,8 @@ var SERVER_PORT = process.env.PORT || 3000;
     res.end(JSON.stringify({ obj : 'prop' }));
 });*/
 app.use(bodyParser.json());
+app.use(express.static('client'));
+
 app.use('/api', router);
 
 router.get('/yelp', function(req, res) {

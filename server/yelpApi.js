@@ -12,7 +12,7 @@ var request = {
 
 function buildURL(category, addressString){
     var url = '';
-
+    
     if (addressString !== ''){
         url + 'location=' + addressString + '&';
     }
@@ -27,5 +27,6 @@ function buildURL(category, addressString){
 
 module.exports = {
     buildURL: buildURL
+
 
 }
