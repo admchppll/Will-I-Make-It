@@ -22,7 +22,7 @@ function generateResult(id, businessName, imgURL, description) {
     output += businessName + '</div><div class="panel-body"><img src="';
     output += imgURL + '"><p>';
     output += description + '</p><button class="btn btn-danger result" id="res-' + id + '"  onclick="addSelected('+id+')">Select</button></div></div></div>';
-    
+
     return output;
 }
 
@@ -33,14 +33,14 @@ function generateContent(iteration){
     var upperBound = lowerBound + resPer;
     console.log(lowerBound);
     console.log(upperBound);
-    
+
     if (upperBound >= yelpResults.length){
         upperBound = yelpResults.length;
     }
     for(var i = lowerBound; i < upperBound; i++){
         html += generateResult(yelpResults[i].ID, yelpResults[i].Name, yelpResults[i].Img, "Short description goes here adam!!");
     }
-    
+
     if(iteration == 0){
         $('#resultContent').html($.parseHTML(html));
     } else {
@@ -50,7 +50,7 @@ function generateContent(iteration){
 
 /*var long, lat;
 function validatePostCode(postcode) {
-    var url = "http://api.postcodes.io/postcodes?q=" + postcode; 
+    var url = "http://api.postcodes.io/postcodes?q=" + postcode;
     var result = false;
     var data = $.ajax(url)
         .done(function (json) {
@@ -62,10 +62,10 @@ function validatePostCode(postcode) {
             else {
                 $('#location').tooltip({'trigger':'focus', 'title': "Could not retrieve postcode information. PLease check the postcode and try again."});
                 $('#location').parent().addClass("has-error")
-            };  
-                     
+            };
+
         });
-      
+
 }*/
 
 function addSelected (id) {
@@ -81,7 +81,7 @@ function addSelected (id) {
         $('#remove2').removeClass("hide");
         $('#bus-'+(id)).addClass("hide");
     }
-    
+
 };
 
 function removeSelected(object) {
@@ -118,10 +118,10 @@ $("#searchBtn").bind("click", function(){
     var category = $('.activeCat').attr("id");
     var json = '{"location":"' + location + '", "category":"' + category + '"}';
     $.ajax({
-        url: '/yelp',
-        method:'get',
-        contentType: 'application/json',
-        body: json,
+        url: '/api/yelp',
+        method:'post',
+        dataType: 'json',
+        data: json,
         success: function(result){
             yelpResults = JSON.parse(result);
             $('#home').removeClass("vertical-center");
@@ -131,22 +131,22 @@ $("#searchBtn").bind("click", function(){
         }
     });
     //call for api results to set yelpResults
-    
+
 });
 
-//moving screen 2 to 3 
+//moving screen 2 to 3
 $('#procBtn').bind("click", function(){
     var json = "";
-    
+
     if(object1 != null && object2 != null){
         $('#results').addClass("hide");
         $('#final').removeClass('hide');
-        
+
         json = '[{"ID":' + object1.ID + ', "lat":"' + object1.Latitude + '", "lon":"' + object1.Longitude + '"},'
         json += '{"ID":' + object2.ID + ', "lat":"' + object2.Latitude + '", "lon":"' + object2.Longitude + '"}]';
-        
+
         //call to lims page
     }else{
-        //Validation message disable button ? 
+        //Validation message disable button ?
     }
 });

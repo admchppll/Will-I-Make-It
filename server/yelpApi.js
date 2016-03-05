@@ -14,14 +14,14 @@ var nonce = require('nonce')();
 //Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated. If the mode is 1 or 2 a search may retrieve an additional 20 businesses past the initial limit of the first 20 results. This is done by specifying an offset and limit of 20. Sort by distance is only supported for a location or geographic search. The rating sort is not strictly sorted by the rating value, but by an adjusted rating value that takes into account the number of ratings, similar to a bayesian average. This is so a business with 1 rating of 5 stars doesn’t immediately jump to the top.
 
 function buildRequest(options, category, addressString, offset ){
-    
+
     var requestParams = {}
     if (category !== undefined){
         requestParams.term = category
     }
-    
+
     if (addressString !== undefined){
-        requestParams.location = location
+        requestParams.location = addressString
     } else {
         requestParams.location = 'Oldham'; // TODO: Test code remove
     }
@@ -29,7 +29,7 @@ function buildRequest(options, category, addressString, offset ){
     requestParams.limit = options.limit;
     requestParams.sortMode = options.sortMode;
     requestParams.radiusMeters = options.radiusMeters;
-    
+
     requestParams.oauth_consumer_key = AUTH_KEYS.CONSUMER_KEY;
     requestParams.oauth_token = AUTH_KEYS.TOKEN;
     requestParams.oauth_signature_method = oauthMethod;
@@ -38,10 +38,10 @@ function buildRequest(options, category, addressString, offset ){
     requestParams.oauth_version = '1.0';
     var auth = oauth.generate(HTTP_METHOD, 'https://api.yelp.com/v2/search', requestParams, AUTH_KEYS.CONSUMER_SECRET, AUTH_KEYS.TOKEN_SECRET, {encodeSignature: false});
     requestParams.oauth_signature = auth;
-    
-    
+
+
     //var auth = oauth.generate(HTTP_METHOD, BASE_URL, parameters, AUTH_KEYS.CONSUMER_SECRET, AUTH_KEYS.TOKEN_SECRET);
-    
+
     return requestParams;
 };
 
@@ -72,7 +72,7 @@ function toResultsLayout(jsonResults) {
                 lat:business.location.coordinate.latitude,
                 lon:business.location.coordinate.longitude
             }
-        } 
+        }
     });
     return returnResultset;
 }
