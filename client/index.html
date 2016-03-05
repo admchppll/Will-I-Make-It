@@ -17,23 +17,34 @@
             <input type="text" class="form-control" aria-label="location" id="location" placeholder="Enter location here...">
               <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></button>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a href="#">Restaraunt</a></li>
-                  <li><a href="#">Museum</a></li>
-                  <li><a href="#">Arts</a></li>
-                  <li><a href="#">Shopping</a></li>
+                <ul class="dropdown-menu dropdown-menu-right" id="catDrop">
+
                 </ul>            
           </div><!-- /btn-group -->
         </div>
         <div class="btn-group" role="group" aria-label="search" id="formBtn">
-          <button type="button" class="btn btn-default">Search</button>
-          <button type="reset" class="btn btn-default">Clear</button>
+          <button type="button" class="btn btn-default" id="searchBtn">Search</button>
+          <button type="reset" class="btn btn-default" id="resetBtn">Clear</button>
         </div>
         </form>
     </div>
 </div> 
 <div id="results" class="container-fluid">
     <div class="container">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 selectedBusiness">
+            <div class="panel panel-danger ">
+                <div class="panel-body">
+                    <p>No business is currently selected</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 selectedBusiness">
+            <div class="panel panel-danger ">
+                <div class="panel-body">
+                    <p>No business is currently selected</p>
+                </div>
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
             <div class="panel panel-danger">
               <div class="panel-title">Business Name 1</div>
@@ -90,7 +101,7 @@
           <div class="panel-body">
               <img src="outside.jpg">
               <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
+              <button class="btn btn-danger result" id="adam1">Select</button>
           </div>
         </div>
         </div>
@@ -113,6 +124,9 @@
               <button class="btn btn-danger">Select</button>
           </div>
         </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <button style="margin:0 auto;" class="btn btn-danger center-block">Load More</button>
         </div>
     </div>
 </div>
@@ -163,5 +177,6 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/custom.js"></script>
 </body>
 </html>
