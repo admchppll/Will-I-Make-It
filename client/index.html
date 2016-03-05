@@ -18,7 +18,6 @@
               <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="catBtn">Categories <span class="caret"></span></button>
                 <ul class="dropdown-menu dropdown-menu-right" id="catDrop">
-
                 </ul>            
           </div><!-- /btn-group -->
         </div>
@@ -55,9 +54,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <button class="btn btn-danger pull-right" onclick="javascript:removeAll()">Clear All</button>
-            <button class="btn btn-danger pull-right">Proceed</button>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="selectionBtnGrp">
+            <div class="pull-right">
+                <button class="btn btn-danger">Proceed</button>
+                <button class="btn btn-default" onclick="javascript:removeAll()">Clear All</button>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-1">
             <div class="panel panel-danger">

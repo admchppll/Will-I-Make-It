@@ -51,3 +51,7 @@ body{
 #selected1, #selected2 {
     display:inline;
 }
+
+#selectionBtnGrp {
+    margin-bottom:1em;
+}
