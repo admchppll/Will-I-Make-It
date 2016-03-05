@@ -201,7 +201,7 @@ function generateRecommendation(bus1, bus2){
     var bus1Riskier, line;
 
     if(Math.abs(bus1.risk - bus2.risk) < 5 && bus1.risk > 70) {
-        line = 'Looks like the odds aren\'t too good. Why not try take away instead?';
+        line = 'Oh golly! Looks like the odds aren\'t too good. Why not try <a href="http://www.just-eat.co.uk/area/'+ bus1.address[bus1.address.length-2].split(' ').splice(1,2).join('') +'" target="_blank">take away</a> instead?';
     } else {
         bus1Riskier = (bus1.risk > bus2.risk);
         line = generateLine(
@@ -210,9 +210,9 @@ function generateRecommendation(bus1, bus2){
         );
     }
 
-    $('#recommendation').text(line);
+    $('#recommendation').html(line);
 
     function generateLine(name1, name2){
-        return 'For your safety, we would recommend going for ' + name1 + ', but hey! ' + name2 + ' might be worth the risk ;)';
+        return 'For your safety, we would recommend going for ' + name1 + '. But hey! ' + name2 + ' might be worth the risk ;)';
     }
 };
