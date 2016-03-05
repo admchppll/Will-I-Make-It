@@ -17,11 +17,11 @@ function buildRequest(options, category, addressString, offset ){
 
     var requestParams = {}
     if (category !== undefined){
-        requestParams.term = category
+        requestParams.term = category;
     }
 
     if (addressString !== undefined){
-        requestParams.location = addressString
+        requestParams.location = addressString;
     } else {
         requestParams.location = 'Oldham'; // TODO: Test code remove
     }

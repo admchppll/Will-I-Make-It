@@ -116,11 +116,12 @@ $("#searchBtn").bind("click", function(){
     var location = $('#location').val();
     var category = $('.activeCat').attr("id");
     var json = '{"location":"' + location + '", "category":"' + category + '"}';
-    //console.log(json);
+    console.log(json);
     $.ajax({
         url: '/api/yelp',
-        method:'post',
+        type:'POST',
         dataType: 'json',
+        contentType: 'application/json; charset=UTF-8',
         data: json,
         success: function(result){
             yelpResults = JSON.parse(result);
