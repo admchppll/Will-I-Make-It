@@ -8,19 +8,18 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/custom.css" rel="stylesheet">
 </head>
-<body scrollable>
+<body scrollable onload="loadCategories()">
 <div id="home" class="container-fluid vertical-center">
     <div class="container">
         <h1>Will I Get There?</h1>
         <form>
-        <div class="input-group">
-            <input type="text" class="form-control" aria-label="location" id="location" placeholder="Enter location here...">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></button>
+        <div class="input-group col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+            <input type="text" class="form-control" id="location" placeholder="Enter location here...">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="catBtn">Categories <span class="caret"></span></button>
                 <ul class="dropdown-menu dropdown-menu-right" id="catDrop">
-
                 </ul>            
-          </div><!-- /btn-group -->
+            </div>
         </div>
         <div class="btn-group" role="group" aria-label="search" id="formBtn">
           <button type="button" class="btn btn-default" id="searchBtn">Search</button>
@@ -29,111 +28,58 @@
         </form>
     </div>
 </div> 
-<div id="results" class="container-fluid">
+<div id="results" class="container-fluid hide">
     <div class="container">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 selectedBusiness">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="panel panel-danger ">
                 <div class="panel-body">
-                    <p>No business is currently selected</p>
+                    <h1>Choose Businesses</h1>
+                    <p>Select 2 of the businesses below and then press the confirm at the bottom of the page to see the results of the comparison. You can change your selection at any point before the comparison. Feel free to go back and search again for another location.</p>
                 </div>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 selectedBusiness">
             <div class="panel panel-danger ">
                 <div class="panel-body">
-                    <p>No business is currently selected</p>
+                    <p id="selected1">No business is currently selected</p>
+                    <a class="removeSelect hide" href="javascript:void(0)" onclick="javascript:removeSelected(1)" id="remove1"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Remove</a>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="panel panel-danger">
-              <div class="panel-title">Business Name 1</div>
-              <div class="panel-body">
-                  <img src="outside.jpg">
-                  <p>Small Description Here</p>
-                  <button class="btn btn-danger">Select</button>
-              </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 selectedBusiness">
+            <div class="panel panel-danger ">
+                <div class="panel-body">
+                    <p id="selected2">No business is currently selected</p>
+                    <a class="removeSelect hide" href="javascript:void(0)" onclick="javascript:removeSelected(2)" id="remove2"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Remove</a>
+                </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-danger">
-          <div class="panel-title">Business Name 2</div>
-          <div class="panel-body">
-              <img src="outside.jpg">
-              <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
-          </div>
-        </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-danger">
-          <div class="panel-title">Business Name 3</div>
-          <div class="panel-body">
-              <img src="outside.jpg">
-              <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
-          </div>
-        </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-danger ">
-          <div class="panel-title">Business Name 4</div>
-          <div class="panel-body">
-              <img src="outside.jpg">
-              <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
-          </div>
-        </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="panel panel-danger">
-              <div class="panel-title">Business Name 1</div>
-              <div class="panel-body">
-                  <img src="outside.jpg">
-                  <p>Small Description Here</p>
-                  <button class="btn btn-danger">Select</button>
-              </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="selectionBtnGrp">
+            <div class="pull-right">
+                <button class="btn btn-danger" id="procBtn">Proceed</button>
+                <button class="btn btn-default" onclick="javascript:removeAll()">Clear All</button>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-danger">
-          <div class="panel-title">Business Name 2</div>
-          <div class="panel-body">
-              <img src="outside.jpg">
-              <p>Small Description Here</p>
-              <button class="btn btn-danger result" id="adam1">Select</button>
-          </div>
-        </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-danger">
-          <div class="panel-title">Business Name 3</div>
-          <div class="panel-body">
-              <img src="outside.jpg">
-              <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
-          </div>
-        </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-danger ">
-          <div class="panel-title">Business Name 4</div>
-          <div class="panel-body">
-              <img src="outside.jpg">
-              <p>Small Description Here</p>
-              <button class="btn btn-danger">Select</button>
-          </div>
-        </div>
+        <div id='resultContent' class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <button style="margin:0 auto;" class="btn btn-danger center-block">Load More</button>
+            <button class="btn btn-danger center-block">Load More</button>
         </div>
     </div>
 </div>
-<div id="final" class="container-fluid">
+<div id="final" class="container-fluid hide">
     <div class="container">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h1>Results</h1>
+            <div class="panel panel-danger ">
+                <div class="panel-body">
+                    <h1>Recommendations</h1>
+                    <p>For your safety, we recommend you visit Business 1 however Business 2 appears to have better ratings, so may be worth the risk...<br/><br/><span id="disclaimer">Please note: Under no circumstances does this site (or it's owner's) accept responsibility for your safety should you follow advice or not. You visit the business of your choice at your own will.</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <button class="btn btn-danger" id="back">Back To Results</button>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">            
             <div class="panel panel-danger ">
@@ -162,14 +108,6 @@
                     <p>Address goes here</p>
                     <p><span class="glyphicon glyphicon-phone-alt"></span>011111101111</p>
                     <p>YELP link</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="panel panel-danger ">
-                <div class="panel-body">
-                    <h1>Recommendations</h1>
-                    <p>For your safety, we recommend you visit Business 1 however Business 2 appears to have better ratings, so may be worth the risk...<br/><br/><span id="disclaimer">Please note: Under no circumstances does this site (or it's owner's) accept responsibility for your safety should you follow advice or not. You visit the business of your choice at your own will.</span></p>
                 </div>
             </div>
         </div>
