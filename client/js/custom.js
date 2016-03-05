@@ -186,3 +186,8 @@ $('#procBtn').bind("click", function(){
         //Validation message disable button ?
     }
 });
+
+$('#back').bind("click", function(){
+    $('#final').addClass("hide");
+    $("#results").removeClass("hide")
+})
