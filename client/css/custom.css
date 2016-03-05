@@ -1,0 +1,45 @@
+body{
+    max-height:100vh;
+    background-image: url('map.jpg');
+    background-size:cover;
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  display: flex;
+  align-items: center;
+}
+
+#home {
+    text-align: center;
+
+}
+
+#formBtn {
+    padding-top: 1em;
+}
+
+.panel {
+    text-align:center;
+}
+
+#home>div>h1 {
+    color:#d43f3a;
+}
+
+.panel-title {
+    font-weight: bold;
+}
+
+.panel-body>img, business>img {
+    max-width: 768px;
+    width: 100%;
+}
+
+#disclaimer {
+    font-style: italic;
+    color:#d43f3a;
+}
