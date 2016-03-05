@@ -8,6 +8,8 @@ var oauth = require('oauth-signature'),
         TOKEN_SECRET:'5INVOnBSKAgvynudU95QSiCTubo'
     };
 var queryString = require('querystring');
+var urlencode = require('urlencode');
+var nonce = require('nonce')();
 
 function buildRequest(category, addressString, BASE_URL){
     var requestParams = {}
@@ -20,14 +22,15 @@ function buildRequest(category, addressString, BASE_URL){
     } else {
         requestParams.location = 'Oldham';
     }
-    
-    requestParams.oauth_timestamp = new Date().getTime()/1000 | 0;
     requestParams.oauth_consumer_key = AUTH_KEYS.CONSUMER_KEY;
+    
+    
     requestParams.oauth_token = AUTH_KEYS.TOKEN;
     requestParams.oauth_signature_method = oauthMethod;
-    requestParams.oauth_nonce = 'ROmhuz';
+    requestParams.oauth_timestamp = new Date().getTime()/1000 | 0;
+    requestParams.oauth_nonce = nonce();
     requestParams.oauth_version = '1.0';
-    var auth = oauth.generate(HTTP_METHOD, BASE_URL, requestParams, AUTH_KEYS.CONSUMER_SECRET, AUTH_KEYS.TOKEN_SECRET);
+    var auth = oauth.generate(HTTP_METHOD, 'https://api.yelp.com/v2/search', requestParams, AUTH_KEYS.CONSUMER_SECRET, AUTH_KEYS.TOKEN_SECRET, {encodeSignature: false});
     requestParams.oauth_signature = auth;
     
     
@@ -36,10 +39,17 @@ function buildRequest(category, addressString, BASE_URL){
     return requestParams;
 };
 
-
+function toHeaderString(){
+    var obj = buildRequest();
+    var str = '?'
+    Object.getOwnPropertyNames(obj).forEach(function(val){
+        str += val + '=' + obj[val]+'&';
+    });
+    return str.slice(0,-1);
+}
 
 module.exports = {
-    buildURL: buildRequest
-
+    buildURL: buildRequest,
+    buildStr: toHeaderString
 
 }

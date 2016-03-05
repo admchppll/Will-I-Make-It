@@ -8,6 +8,7 @@ var express = require('express'),
     router = express.Router();
 
 var SERVER_PORT = process.env.PORT || 3000;
+var BASE_URL = 'https://api.yelp.com/v2/search';
 
 /*app.get('/', function functionName(req, res) {
     // return index.html and stuff
@@ -18,11 +19,19 @@ app.use(bodyParser.json());
 app.use(express.static('client'));
 
 app.use('/api', router);
+console.log(BASE_URL + yelp.buildStr())
 
+
+
+request( BASE_URL + yelp.buildStr(), function(err, res, body){ //
+        var x = JSON.parse(body);
+        console.log(x.keys().length)
+    });
+    
+    
 router.get('/yelp', function(req, res) {
 
     router.get()
-
     //res.writeHead(200, {'Content-Type': 'text/plain'});
     //res.end('Hello');
 });
