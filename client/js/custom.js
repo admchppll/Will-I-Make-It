@@ -1,20 +1,13 @@
 var allResults; //Object for storing results of query
 var object1 = null, object2 = null; //Storing the 2 businesses selected
 
-/*
-$("#action-1").click(function(e){
-//do something
-e.preventDefault();
-
-});*/
-
 function loadCategories ()
 {
     var temp = "";
     $.getJSON("categories.json", function(data) {
          for(var i = 0; i < data.length;i++){
              if(data[i].parents.length === 0){
-                 temp = "<li><a href='javascript:void(0)' id='" + data[i].alias + "'>" + data[i].title + "</a></li>";
+                 temp = "<li><a class='catLi' href='javascript:void(0)' id='" + data[i].alias + "' onclick='switchCat(" + '"' +data[i].alias+'")'+"'>" + data[i].title + "</a></li>";
                  $('#catDrop').append($.parseHTML(temp));
              }
          }
@@ -60,4 +53,11 @@ $('.result').bind("click", function () {
         object2 = allResults[id];
     }
 });
+
+function switchCat(id){
+    var temp = $('#'+id).text() + ' <span class="caret"></span>';
+    $('.activeCat').removeClass('activeCat');
+    $('#'+id).addClass("activeCat");
+    $('#catBtn').html($.parseHTML(temp));
+}
 
