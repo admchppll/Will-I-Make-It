@@ -70,13 +70,15 @@ function validatePostCode(postcode) {
 function addSelected (id) {
     //var id = ((this.id).split("-"))[1]; //id of item in full array
     if(object1 === null) {
-        object1 = yelpResults[id-1];
-        $('#selected1').text(yelpResults[id-1].Name);
+        object1 = yelpResults[id];
+        object1.id = id;
+        $('#selected1').text(yelpResults[id].name);
         $('#remove1').removeClass("hide");
         $('#bus-'+(id)).addClass("hide");
     } else if (object2 === null) {
-        object2 = yelpResults[id-1];
-        $('#selected2').text(yelpResults[id-1].Name);
+        object2 = yelpResults[id];
+        object2.id = id;
+        $('#selected2').text(yelpResults[id].name);
         $('#remove2').removeClass("hide");
         $('#bus-'+(id)).addClass("hide");
     }
@@ -85,12 +87,12 @@ function addSelected (id) {
 
 function removeSelected(object) {
     if (object === 1) {
-        $('#bus-'+object1.ID).removeClass("hide");
+        $('#bus-'+object1.id).removeClass("hide");
         object1 = null;
         $('#selected1').text("No business is currently selected");
         $('#remove1').addClass("hide");
     } else if (object === 2) {
-        $('#bus-'+ object2.ID).removeClass("hide");
+        $('#bus-'+ object2.id).removeClass("hide");
         object2 = null;
         $('#selected2').text("No business is currently selected");
         $('#remove2').addClass("hide");
@@ -143,10 +145,20 @@ $('#procBtn').bind("click", function(){
         $('#results').addClass("hide");
         $('#final').removeClass('hide');
 
-        json = '[{"ID":' + object1.ID + ', "lat":"' + object1.Latitude + '", "lon":"' + object1.Longitude + '"},'
-        json += '{"ID":' + object2.ID + ', "lat":"' + object2.Latitude + '", "lon":"' + object2.Longitude + '"}]';
+        json = '[{"ID":' + object1.id + ', "lat":"' + object1.lat + '", "lon":"' + object1.lon + '"},';
+        json += '{"ID":' + object2.id + ', "lat":"' + object2.lat + '", "lon":"' + object2.lon + '"}]';
 
-        //call to lims page
+        console.log(json);
+        $.ajax({
+            url: '/api/cdl',
+            type:'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=UTF-8',
+            data: json,
+            success: function(result){
+                console.log(result);
+            }
+        });
     }else{
         //Validation message disable button ?
     }
