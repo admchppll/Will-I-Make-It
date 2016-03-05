@@ -182,6 +182,8 @@ $('#procBtn').bind("click", function(){
                             $('.business-phone', card).text(business.phone);
                             $('.business-yelp-link', card).attr('href', business.url);
                     });
+
+                    generateRecommendation(results[0], results[1]);
                 }
             }
         });
@@ -193,4 +195,24 @@ $('#procBtn').bind("click", function(){
 $('#back').bind("click", function(){
     $('#final').addClass("hide");
     $("#results").removeClass("hide")
-})
+});
+
+function generateRecommendation(bus1, bus2){
+    var bus1Riskier, line;
+
+    if(Math.abs(bus1.risk - bus2.risk) < 5 && bus1.risk > 70) {
+        line = 'Looks like the odds aren\'t too good. Why not try take away instead?';
+    } else {
+        bus1Riskier = (bus1.risk > bus2.risk);
+        line = generateLine(
+            (bus1Riskier)? bus2.name : bus1.name,
+            (!bus1Riskier)? bus2.name : bus1.name
+        );
+    }
+
+    $('#recommendation').text(line);
+
+    function generateLine(name1, name2){
+        return 'For your safety, we would recommend going for ' + name1 + ', but hey! ' + name2 + ' might be worth the risk ;)';
+    }
+};
