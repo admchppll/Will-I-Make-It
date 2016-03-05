@@ -154,8 +154,27 @@ $('#procBtn').bind("click", function(){
             dataType: 'json',
             contentType: 'application/json; charset=UTF-8',
             data: json,
-            success: function(result){
-                console.log(result);
+            success: function(results){
+                if(results.forEach){
+                    if(results[0].ID == object1.id){
+                        results[0] = Object.assign(results[0], object1);
+                        results[1] = Object.assign(results[1], object2);
+                    } else {
+                        results[0] = Object.assign(results[0], object2);
+                        results[1] = Object.assign(results[1], object1);
+                    }
+                    results.forEach(function(business, index){
+                        var card = $('#final-business-'+index);
+                            $('.business-name', card).text(business.name);
+                            $('.business-img', card).attr('src', business.imgUrl.replace(/ms\.jpg$/i, 'ls.jpg'));
+                            $('.business-risk-rate', card).text(parseFloat(business.risk).toFixed(2) + '%');
+                            $('.business-description', card).text(business.comment);
+                            $('.business-star-rating', card).attr('src', business.starsUrl);
+                            $('.business-address', card).html(business.address.join('<br/>'));
+                            $('.business-phone', card).text(business.phone);
+                            $('.business-yelp-link', card).attr('href', business.url);
+                    });
+                }
             }
         });
     }else{

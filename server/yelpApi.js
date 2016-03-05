@@ -65,7 +65,7 @@ function toResultsLayout(jsonResults) {
                     id: business.id,
                     name: business.name,
                     url: business.url,
-                    imgUrl : business.image_url,
+                    imgUrl : (business.image_url)? business.image_url.replace(/ms\.jpg$/i, 'ls.jpg') : business.image_url,
                     phone: business.display_phone,
                     starsUrl : business.rating_img_url_large,
                     comment : business.snippet_text,
@@ -77,7 +77,7 @@ function toResultsLayout(jsonResults) {
             }
         });
         return returnResultset;
-    } 
+    }
         return null;
 }
 
