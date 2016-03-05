@@ -70,13 +70,15 @@ function validatePostCode(postcode) {
 function addSelected (id) {
     //var id = ((this.id).split("-"))[1]; //id of item in full array
     if(object1 === null) {
-        object1 = yelpResults[id-1];
-        $('#selected1').text(yelpResults[id-1].Name);
+        object1 = yelpResults[id];
+        object1.ID = id;
+        $('#selected1').text(yelpResults[id].name);
         $('#remove1').removeClass("hide");
         $('#bus-'+(id)).addClass("hide");
     } else if (object2 === null) {
-        object2 = yelpResults[id-1];
-        $('#selected2').text(yelpResults[id-1].Name);
+        object2 = yelpResults[id];
+        object2.ID = id;
+        $('#selected2').text(yelpResults[id].name);
         $('#remove2').removeClass("hide");
         $('#bus-'+(id)).addClass("hide");
     }
