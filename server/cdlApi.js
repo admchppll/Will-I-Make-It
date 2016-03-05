@@ -3,15 +3,22 @@ var request = require('request'),
     math = require('mathjs'),
     apiURL = 'http://elastic.hackathon.cdlaws.co.uk/hackathondata/_search';
 
-module.exports = function run(lat, lon) {
-    return new Promise(function(resolve){
-        getLocationData(lat, lon).then(function(data) {
-            calculateRisk(data, resolve);
-        });
+module.exports = function run(locations) {
+    var requests = locations.map(function(location){
+        return (
+            function(location){
+                return new Promise(function(resolve){
+                    getLocationData(location).then(function(data) {
+                        calculateRisk(data, resolve);
+                    });
+                });
+            }
+        )(location);
     });
+    return Promise.all(requests);
 }
 
-function getLocationData (lat, lon) {
+function getLocationData (location) {
     return new Promise(function(resolve, reject){
         request({
             url: apiURL,
@@ -19,9 +26,9 @@ function getLocationData (lat, lon) {
             headers: {
                 "content-type": "application/json",
             },
-            body: JSON.stringify(createRequestData(lat, lon))
+            body: JSON.stringify(createRequestData(location.lat, location.lon))
         }, function(err, res, data){
-            resolve(data); //JSON data
+            resolve({ cdlData : data, ID : location.ID }); //JSON data
         });
     });
 }
@@ -46,34 +53,33 @@ function createRequestData (lat, lon) {
 }
 
 function calculateRisk (data, resolve) {
-    var data = JSON.parse(data).hits.hits;
-    Object.defineProperty(data, 'getArray', { value : getArray });
+    var cdlData = JSON.parse(data.cdlData).hits.hits;
+    Object.defineProperty(cdlData, 'getArray', { value : getArray });
 
-    var count = data.length,
-        years = data.getArray('year'),
+    var count = cdlData.length,
+        years = cdlData.getArray('year'),
         latestYear = Math.max.apply(null, years),
         yearRisk = calcYearRisk(years, latestYear); // final
 
 
-    var casualties = data.getArray('numberofCasualties'),
+    var casualties = cdlData.getArray('numberofCasualties'),
         avgCasualties = math.mean(removeSpike(casualties)),
         casualtiesRisk = calcCasualitiesRisk(avgCasualties); // final
 
-    var severities = data.getArray('accidentSeverity');
+    var severities = cdlData.getArray('accidentSeverity');
     var severityRisk = calcSeverityRisk(severities); // final
 
-    var vehicles = data.getArray('numberofVehicles'),
+    var vehicles = cdlData.getArray('numberofVehicles'),
         avgVehicles = math.mean(removeSpike(vehicles)),
         vehiclesRisk = calcVehiclesRisk(avgVehicles); // final
 
     var finalRisk = (yearRisk + casualtiesRisk + severityRisk + vehiclesRisk) * 10;
 
-    console.log(years, yearRisk);
-    console.log(casualties, casualtiesRisk);
-    console.log(severities, severityRisk);
-    console.log(vehicles, vehiclesRisk);
-
-    resolve(finalRisk);
+    // console.log(years, yearRisk);
+    // console.log(casualties, casualtiesRisk);
+    // console.log(severities, severityRisk);
+    // console.log(vehicles, vehiclesRisk);
+    resolve({ risk : finalRisk, ID : data.ID });
 }
 
 function removeSpike (data) {

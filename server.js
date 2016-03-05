@@ -20,24 +20,36 @@ app.use(express.static('client'));
 app.use('/api', router);
 
 router.get('/yelp', function(req, res) {
-    
+
     router.get()
-    
+
     //res.writeHead(200, {'Content-Type': 'text/plain'});
     //res.end('Hello');
 });
 
 router.post('/cdl', function (req, res) {
-    var lat = req.body[0].lat,
-        lon = req.body[0].lon;
-    // expect 2nd loc set
+    var locations = req.body;
 
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-
-    cdlApi(lat,lon).then(function(data){
-        console.log(data);
-        res.end(data.toString());
-    });
+    if(locations instanceof Array){
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        cdlApi(locations).then(function(data){
+            console.log(data);
+            console.log(locations);
+            var results = locations.map(function(location){
+                for(var idx in data){
+                    if(location.ID == data[idx].ID){
+                        location.risk = data[idx].risk;
+                        return location;
+                    }
+                }
+            });
+            res.end(JSON.stringify(results, null, 4));
+        });
+    }
+    else {
+        res.writeHead(300, {'Content-Type': 'text/plain'});
+        res.end('Invalid arguments. Data provided should be an array');
+    }
 })
 
 app.listen(SERVER_PORT, function(){
