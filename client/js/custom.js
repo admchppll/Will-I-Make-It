@@ -1,4 +1,4 @@
-var allResults = JSON.parse('[{"ID":1,"Name":"Adam 1"},{"ID":2,"Name":"Adam 2"},{"ID":3,"Name":"Adam 3"},{"ID":4,"Name":"Adam 4"},{"ID":5,"Name":"Adam 5"},{"ID":6,"Name":"Adam 6"},{"ID":7,"Name":"Adam 7"},{"ID":8,"Name":"Adam 8"}]'); //Object for storing results of query
+var allResults = JSON.parse('[{"ID":1,"Name":"Adam 1", "Img":"outside.jpg"},{"ID":2,"Name":"Adam 2", "Img":"outside.jpg"},{"ID":3,"Name":"Adam 3", "Img":"outside.jpg"},{"ID":4,"Name":"Adam 4", "Img":"outside.jpg"},{"ID":5,"Name":"Adam 5", "Img":"outside.jpg"},{"ID":6,"Name":"Adam 6", "Img":"outside.jpg"},{"ID":7,"Name":"Adam 7", "Img":"outside.jpg"},{"ID":8,"Name":"Adam 8", "Img":"outside.jpg"}]'); //Object for storing results of query
 var object1 = null, object2 = null; //Storing the 2 businesses selected
 
 function loadCategories() {
@@ -18,9 +18,19 @@ function generateResult(id, businessName, imgURL, description) {
     var output = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-' + id + '"><div class="panel panel-danger"><div class="panel-title">';
     output += businessName + '</div><div class="panel-body"><img src="';
     output += imgURL + '"><p>';
-    output += description + '</p><button class="btn btn-danger result" id="res-' + id + '">Select</button></div></div></div>';
+    output += description + '</p><button class="btn btn-danger result" id="res-' + id + '"  onclick="addSelected('+id+')">Select</button></div></div></div>';
     
     return output;
+}
+
+function generateContent(){
+    var html = "";
+    
+    for(var i = 0; i < allResults.length; i++){
+        html += generateResult(allResults[i].ID, allResults[i].Name, allResults[i].Img, "Short description goes here adam!!");
+    }
+    
+    $('#resultContent').html($.parseHTML(html));
 }
 
 var long, lat;
@@ -43,8 +53,8 @@ function validatePostCode(postcode) {
       
 }
 
-$('.result').bind("click", function () {
-    var id = ((this.id).split("-"))[1]; //id of item in full array
+function addSelected (id) {
+    //var id = ((this.id).split("-"))[1]; //id of item in full array
     if(object1 === null) {
         object1 = allResults[id-1];
         $('#selected1').text(allResults[id-1].Name);
@@ -57,7 +67,7 @@ $('.result').bind("click", function () {
         $('#bus-'+(id)).addClass("hide");
     }
     
-});
+};
 
 function removeSelected(object) {
     if (object === 1) {
@@ -76,8 +86,10 @@ function removeSelected(object) {
 }
 
 function removeAll() {
-    removeSelected(1);
-    removeSelected(2);
+    if (object1 != null)
+        removeSelected(1);
+    if (object2 != null)
+        removeSelected(2);
 }
 
 function switchCat(id){
@@ -87,3 +99,13 @@ function switchCat(id){
     $('#catBtn').html($.parseHTML(temp));
 }
 
+$("#searchBtn").bind("click", function(){
+    var location = $('#location').val();
+    var category = $('.activeCat').attr("id");
+    var json = '{"location":"' + location + '", "category":"' + category + '"}';
+    
+    $('#home').removeClass("vertical-center");
+    $('#formBtn').addClass("normal-view");
+    generateContent();
+    $('#results').removeClass("hide");
+});
