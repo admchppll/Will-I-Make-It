@@ -11,7 +11,10 @@ var queryString = require('querystring');
 var urlencode = require('urlencode');
 var nonce = require('nonce')();
 
-function buildRequest(category, addressString, BASE_URL){
+//Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated. If the mode is 1 or 2 a search may retrieve an additional 20 businesses past the initial limit of the first 20 results. This is done by specifying an offset and limit of 20. Sort by distance is only supported for a location or geographic search. The rating sort is not strictly sorted by the rating value, but by an adjusted rating value that takes into account the number of ratings, similar to a bayesian average. This is so a business with 1 rating of 5 stars doesn’t immediately jump to the top.
+
+function buildRequest(options, category, addressString, offset ){
+    
     var requestParams = {}
     if (category !== undefined){
         requestParams.term = category
@@ -20,11 +23,14 @@ function buildRequest(category, addressString, BASE_URL){
     if (addressString !== undefined){
         requestParams.location = location
     } else {
-        requestParams.location = 'Oldham';
+        requestParams.location = 'Oldham'; // TODO: Test code remove
     }
+    console.log(options, category, addressString, offset);
+    requestParams.limit = options.limit;
+    requestParams.sortMode = options.sortMode;
+    requestParams.radiusMeters = options.radiusMeters;
+    
     requestParams.oauth_consumer_key = AUTH_KEYS.CONSUMER_KEY;
-    
-    
     requestParams.oauth_token = AUTH_KEYS.TOKEN;
     requestParams.oauth_signature_method = oauthMethod;
     requestParams.oauth_timestamp = new Date().getTime()/1000 | 0;
@@ -39,8 +45,8 @@ function buildRequest(category, addressString, BASE_URL){
     return requestParams;
 };
 
-function toHeaderString(){
-    var obj = buildRequest();
+function toHeaderString(options, category, addressString, offset){
+    var obj = buildRequest(options, category, addressString, offset);
     var str = '?'
     Object.getOwnPropertyNames(obj).forEach(function(val){
         str += val + '=' + obj[val]+'&';
@@ -48,8 +54,35 @@ function toHeaderString(){
     return str.slice(0,-1);
 }
 
+function toResultsLayout(jsonResults) {
+    var businesses = jsonResults.businesses;
+    var returnResultset = []
+    console.log(businesses.length + ' Businesses Found');
+    businesses.forEach(function(business, index){
+        for(var bizKey in business) {
+            if (!!bizKey.id){
+                returnResultset[index] = {
+                    id: bizKey.id,
+                    url: bizKey.url,
+                    imgUrl : bizKey.image_url,
+                    phone: bizKey.display_phone,
+                    starsUrl : bizKey.rating_img_url_large,
+                    comment : bizKey.snippet_text,
+                    isClosed : bizKey.is_closed,
+                    address: bizKey.location.display_address,
+                    lat:bizKey.location.coordinate.latitude,
+                    lon:bizKey.location.coordinate.longitude
+                }
+            } 
+        }
+        
+    });
+    return returnResultset;
+}
+
 module.exports = {
     buildURL: buildRequest,
-    buildStr: toHeaderString
+    buildStr: toHeaderString,
+    toResults: toResultsLayout
 
 }

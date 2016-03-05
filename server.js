@@ -3,35 +3,44 @@ var express = require('express'),
     cdlApi = require('./server/cdlApi.js'),
     yelp = require("./server/yelpApi.js"),
     app = express(),
-    //https = require('https'),
     request = require('request'),
     router = express.Router();
 
 var SERVER_PORT = process.env.PORT || 3000;
-var BASE_URL = 'https://api.yelp.com/v2/search';
 
-/*app.get('/', function functionName(req, res) {
-    // return index.html and stuff
-    res.writeHead(200, {'Content-Type' : 'application/json'});
-    res.end(JSON.stringify({ obj : 'prop' }));
-});*/
-app.use(bodyParser.json());
+const YELP_DEFAULTS = {
+    BASE_URL: 'https://api.yelp.com/v2/search',
+    limit : 20,
+    sortMode: 1,
+    radiusMeters: 1000,
+    dealsBool: false
+};
+var YELP_OPTIONS = YELP_DEFAULTS;
+
+
+app.use(bodyParser.json());  // is this needed???
 app.use(express.static('client'));
 
 app.use('/api', router);
-console.log(BASE_URL + yelp.buildStr())
 
 
 
-request( BASE_URL + yelp.buildStr(), function(err, res, body){ //
-        var x = JSON.parse(body);
-        console.log(x.keys().length)
+    
+    
+app.get('/yelp', function(req, res) {
+
+    //var location =  req.body[0];
+   // var category = req.body[1];
+   
+    //console.log(BASE_URL + yelp.buildStr());  // use if the request fails
+    console.log(YELP_OPTIONS);
+    request( YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS), function(err, yelpRes, body){ 
+        var response = JSON.parse(body);    
+        res.json(JSON.stringify(yelp.toResults));
+        
     });
     
-    
-router.get('/yelp', function(req, res) {
 
-    router.get()
     //res.writeHead(200, {'Content-Type': 'text/plain'});
     //res.end('Hello');
 });
@@ -61,6 +70,11 @@ router.post('/cdl', function (req, res) {
     }
 })
 
+/*app.get('/', function functionName(req, res) {
+    // return index.html and stuff
+    res.writeHead(200, {'Content-Type' : 'application/json'});
+    res.end(JSON.stringify({ obj : 'prop' }));
+});*/
 app.listen(SERVER_PORT, function(){
     console.log('Listening on port', SERVER_PORT);
 });
