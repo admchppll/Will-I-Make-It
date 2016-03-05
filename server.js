@@ -3,6 +3,8 @@ var express = require('express'),
     cdlApi = require('./server/cdlApi.js'),
     yelp = require("./server/yelpApi.js"),
     app = express(),
+    //https = require('https'),
+    request = require('request'),
     router = express.Router();
 
 var SERVER_PORT = process.env.PORT || 3000;
@@ -18,8 +20,11 @@ app.use(express.static('client'));
 app.use('/api', router);
 
 router.get('/yelp', function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello');
+    
+    router.get()
+    
+    //res.writeHead(200, {'Content-Type': 'text/plain'});
+    //res.end('Hello');
 });
 
 router.post('/cdl', function (req, res) {
