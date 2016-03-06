@@ -82,6 +82,8 @@ function addSelected (id) {
         $('#selected2').text(yelpResults[id].name);
         $('#remove2').removeClass("hide");
         $('#bus-'+(id)).addClass("hide");
+        
+        $("html, body").animate({ scrollTop: 0 }, "slow");
     }
 
 };
