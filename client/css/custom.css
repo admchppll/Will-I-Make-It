@@ -87,16 +87,15 @@ body{
     padding-top:0.6em;
 }
 
+@media screen and (max-width: 768px){
+    #logo {
+        max-width:350px;
+        padding-top:0.6em;
+    }
+}
+
 #back {
     margin-bottom: 2em;
-}
-
-#footer {
-    text-align: center;
-}
-
-#strtPic {
-    width:200px;
 }
 
 .panel-title {
@@ -105,8 +104,46 @@ body{
 
 .tech {
     padding-bottom:1em;
+    height:300px;
 }
 
 .tech > img {
     width:100%;
+}
+
+#further > p {
+    margin: 2em auto; 
+    font-size:1.15em;
+}
+
+div.c-wrapper{
+    width: 80%; /* for example */
+    margin: auto;
+}
+
+.carousel-inner > .item > img, 
+.carousel-inner > .item > a > img{
+width: 100%; /* use this, or not */
+margin: auto;
+}
+
+#strtPic {
+    height:400px;
+    max-width: 300px;
+    margin 0 auto;
+}
+
+.scndImg {
+    max-width:40px;
+}
+
+#affix{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+#affix>a {
+    color:#d43f3a;
 }
