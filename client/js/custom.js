@@ -237,6 +237,8 @@ $('#procBtn').bind("click", function(){
                     });
 
                     generateRecommendation(results[0], results[1]);
+                    
+                    $('.finalBusinesses').removeClass("hide");
                 }
             }
         });
@@ -272,8 +274,4 @@ function generateRecommendation(bus1, bus2){
     function generateLine(name1, name2){
         return 'For your safety, we would recommend going for ' + name1 + '. But hey! ' + name2 + ' might be worth the risk ;)';
     }
-};
-
-$('.carousel').carousel({
-    interval: false;
-}); 
+}

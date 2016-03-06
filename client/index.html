@@ -8,7 +8,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/custom.css" rel="stylesheet">
 </head>
-<body scrollable onload="loadCategories()">
+<body scrollable >
 <div id="home" class="container-fluid vertical-center">
     <div class="container">
         <a href="." onclick="javascript:if($('#location').val()){return confirm('Are you sure? You will lose data you have entered.')}">
@@ -21,6 +21,28 @@
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="catBtn">Categories <span class="caret"></span></button>
                 <ul class="dropdown-menu dropdown-menu-right" id="catDrop">
+                    <li><a class="catLi" href="javascript:void(0)" id="active" onclick="switchCat('active')">Active Life</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="arts" onclick="switchCat('arts')">Arts &amp; Entertainment</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="auto" onclick="switchCat('auto')">Automotive</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="beautysvc" onclick="switchCat('beautysvc')">Beauty &amp; Spas</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="bicycles" onclick="switchCat('bicycles')">Bicycles</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="education" onclick="switchCat('education')">Education</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="eventservices" onclick="switchCat('eventservices')">Event Planning &amp; Services</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="financialservices" onclick="switchCat('financialservices')">Financial Services</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="food" onclick="switchCat('food')">Food</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="health" onclick="switchCat('health')">Health &amp; Medical</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="homeservices" onclick="switchCat('homeservices')">Home Services</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="hotelstravel" onclick="switchCat('hotelstravel')">Hotels &amp; Travel</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="localflavor" onclick="switchCat('localflavor')">Local Flavor</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="localservices" onclick="switchCat('localservices')">Local Services</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="massmedia" onclick="switchCat('massmedia')">Mass Media</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="nightlife" onclick="switchCat('nightlife')">Nightlife</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="pets" onclick="switchCat('pets')">Pets</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="professional" onclick="switchCat('professional')">Professional Services</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="publicservicesgovt" onclick="switchCat('publicservicesgovt')">Public Services &amp; Government</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="religiousorgs" onclick="switchCat('religiousorgs')">Religious Organizations</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="restaurants" onclick="switchCat('restaurants')">Restaurants</a></li>
+                    <li><a class="catLi" href="javascript:void(0)" id="shopping" onclick="switchCat('shopping')">Shopping</a></li>
                 </ul>
             </div>
         </div>
@@ -78,7 +100,7 @@
                 <div class="panel-body">
                     <h1>Recommendations</h1>
                     <p>
-                        <h4 id="recommendation">Please hold, our highly skilled statisticians are calculating with their abascus at the moment...</h4><br/><br/>
+                        <h4 id="recommendation">Please hold, our highly skilled statisticians are calculating with their abascus at the moment...<br/><img src="http://s.bettermeme.com/images/loading.gif"></h4><br/><br/>
                         <span id="disclaimer">
                             Please note: Under no circumstances does this site (or it's owner's) accept responsibility for your safety should you follow advice or not. You visit the business of your choice at your own will.
                         </span>
@@ -90,7 +112,7 @@
             <button class="btn btn-danger" id="back">Back To Results</button>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <div class="panel panel-danger ">
+            <div class="panel panel-danger finalBusinesses hide">
                 <div class="panel-body" id="final-business-0">
                     <h2 class="business-name"></h2>
                     <!-- <h4>Category</h4> -->
@@ -110,7 +132,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <div class="panel panel-danger ">
-                <div class="panel-body" id="final-business-1">
+                <div class="panel-body finalBusinesses hide" id="final-business-1">
                     <h2 class="business-name"></h2>
                     <!-- <h4>Category</h4> -->
                     <img class="business-img" src="">
