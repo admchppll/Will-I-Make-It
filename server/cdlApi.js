@@ -83,7 +83,7 @@ function calculateRisk (data, resolve) {
         // console.log(vehicles, vehiclesRisk);
         resolve({ risk : finalRisk, ID : data.ID });
     } else {
-        resolve(null);
+        resolve({ risk : null, ID : data.ID });
     }
 }
 
