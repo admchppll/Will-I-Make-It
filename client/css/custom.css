@@ -151,3 +151,7 @@ margin: auto;
 #gif {
     max-width: 100px;
 }
+
+.inner {
+    min-height:280px;
+}
