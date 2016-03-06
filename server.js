@@ -29,7 +29,7 @@ router.post('/yelp', function(req, res) {
     console.log('Request Started');
     var location =  req.body.location;
     var category = req.body.category;
-    YELP_OPTIONS.iteration = req.body.iteration;
+    YELP_OPTIONS.iteration = parseInt(req.body.iteration);
     var completeURL = YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS, category, location)
     //console.log(BASE_URL + yelp.buildStr());  // use if the request fails
     //console.log(YELP_OPTIONS);

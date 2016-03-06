@@ -16,17 +16,17 @@ var nonce = require('nonce');
 function buildRequest(options, category, addressString, offset ){
 
     var requestParams = {}
-    
     if (addressString != undefined && addressString != 'undefined'){
         requestParams.location = addressString;
     } else {
         requestParams.location = 'Oldham'; // TODO: Test code remove
     }
+    
     if (category != undefined && category !== 'undefined'){
         requestParams.term = category;
     }
     
-    //requestParams.offset = options.iteration * 20;
+    requestParams.offset = options.iteration * 20;
     //console.log(options, category, addressString, offset);
     //requestParams.limit = options.limit;
     //requestParams.sortMode = options.sortMode;
@@ -37,9 +37,12 @@ function buildRequest(options, category, addressString, offset ){
     requestParams.oauth_signature_method = oauthMethod;
     requestParams.oauth_timestamp = new Date().getTime()/1000 | 0;
     requestParams.oauth_nonce = nonce()();
+    
     requestParams.oauth_version = '1.0';
+    
     var auth = oauth.generate(HTTP_METHOD, options.BASE_URL, requestParams, AUTH_KEYS.CONSUMER_SECRET, AUTH_KEYS.TOKEN_SECRET, {encodeSignature: false});
     requestParams.oauth_signature = auth;
+    
 
 
     //var auth = oauth.generate(HTTP_METHOD, BASE_URL, parameters, AUTH_KEYS.CONSUMER_SECRET, AUTH_KEYS.TOKEN_SECRET);

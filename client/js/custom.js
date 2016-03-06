@@ -1,6 +1,8 @@
 var yelpResults;
 var cdlResults;
 var iterations = 0;
+var json = '';
+var inprogress = false;
 
 var object1 = null, object2 = null; //Storing the 2 businesses selected
 $(document).ready(function() {
@@ -11,6 +13,14 @@ $(document).ready(function() {
         }
     });
     
+});
+$(window).scroll(function() {
+   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+       if(inprogress === false){
+           console.log('Requesting more items...')
+           requestMoreThings(0, iterations);
+        }
+   }
 });
 function loadCategories() {
     var temp = "";
@@ -143,12 +153,10 @@ function switchCat(id){
 }
 
 //show screen 2 now
-$("#searchBtn").bind("click", function(){
+$("#searchBtn").bind("click", function(){ // AKA the reset button
+    iterations = 0;// will never reset otherwise + needs to be before JSON assignment   
     var location = $('#location');
-    var category = $('.activeCat').attr("id");
-    var json = '{"location":"' + location.val() + '", "category":"' + category + '", "iteration":"' + iterations + '"}';
     updateInstructions('stage', 1);
-    
     var btn = $(this);
     location.prop('disabled', true);
     btn.prop('disabled', true);
@@ -157,11 +165,14 @@ $("#searchBtn").bind("click", function(){
     console.log(json); //TODO: Remove when finished
     var Tries = 0;
     
-    requestMoreThings(Tries, iterations, json);
+    requestMoreThings(Tries, iterations);
 });
-var requestMoreThings = function(numberOfTries, iteration, json) { //Request the results
- var location = $('#location');
- var btn = $("#searchBtn");
+var requestMoreThings = function(numberOfTries, iteration) { //Request the results
+    inprogress = true;
+    var location = $('#location');
+    var btn = $("#searchBtn");
+    var category = $('.activeCat').attr("id");
+    json = '{"location":"' + location.val() + '", "category":"' + category + '", "iteration":"' + iteration + '"}';
     $.ajax({
         url: '/api/yelp',
         type:'POST',
@@ -178,10 +189,11 @@ var requestMoreThings = function(numberOfTries, iteration, json) { //Request the
                 generateContent(iteration);
                 iterations += 1;
                 $('#results').removeClass("hide");
-                
+                inprogress = false;
                 location.prop('disabled', false);
                 btn.prop('disabled', false);
                 btn.text('Search');
+                console.log('Loading success');
             } else {
                 console.log('No businesses found');
             }
@@ -191,13 +203,14 @@ var requestMoreThings = function(numberOfTries, iteration, json) { //Request the
         if (numberOfTries < 5){
             setTimeout(function reqDelay() {
                 console.log('delay'+numberOfTries);
-                requestMoreThings(numberOfTries + 1);
+                requestMoreThings(numberOfTries + 1, iteration);
             }, 500);
         } else {
             alert('Trouble connecting to Yelp services, please try another location or try again later.');
             location.prop('disabled', false);
             btn.prop('disabled', false);
             btn.text('Search');
+            inprogress = false;
         }
     });
 }
