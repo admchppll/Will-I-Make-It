@@ -1,5 +1,6 @@
 var yelpResults;
 var cdlResults;
+var iterations = 0;
 
 var object1 = null, object2 = null; //Storing the 2 businesses selected
 $(document).ready(function() {
@@ -8,8 +9,9 @@ $(document).ready(function() {
         if (event.keyCode == 13) {
             $('#searchBtn').click();
         }
-    })
-})
+    });
+    
+});
 function loadCategories() {
     var temp = "";
     $.getJSON("categories.json", function(data) {
@@ -144,56 +146,61 @@ function switchCat(id){
 $("#searchBtn").bind("click", function(){
     var location = $('#location');
     var category = $('.activeCat').attr("id");
-    var json = '{"location":"' + location.val() + '", "category":"' + category + '"}';
+    var json = '{"location":"' + location.val() + '", "category":"' + category + '", "iteration":"' + iterations + '"}';
     updateInstructions('stage', 1);
-    var Tries = 0;
+    
     var btn = $(this);
     location.prop('disabled', true);
     btn.prop('disabled', true);
     btn.text('Searching...');
     
-    //console.log(json); //TODO: Remove when finished
-    var requestThings = function(numberOfTries) {
-        $.ajax({
-            url: '/api/yelp',
-            type:'POST',
-            dataType: 'json',
-            contentType: 'application/json; charset=UTF-8',
-            data: json,
-            success: function(result){
-                yelpResults = JSON.parse(result);
-                if(yelpResults){
-                    $('#home').removeClass("vertical-center");
-                    $('#formBtn').addClass("normal-view");
-                    $('#logo').addClass("sm-logo");
-                    $('#home>div>p').addClass("hide");
-                    generateContent(0);
-                    $('#results').removeClass("hide");
-                    
-                    location.prop('disabled', false);
-                    btn.prop('disabled', false);
-                    btn.text('Search');
-                } else {
-                    console.log('No businesses found');
-                }
-            }
-        }).fail(function(result){
-            console.log('Request #' + numberOfTries);
-            if (numberOfTries < 5){
-                setTimeout(function reqDelay() {
-                    console.log('delay'+numberOfTries);
-                    requestThings(numberOfTries + 1);
-                }, 300);
-            } else {
-                alert('Trouble connecting to Yelp services, please try another location or try again later.');
+    console.log(json); //TODO: Remove when finished
+    var Tries = 0;
+    
+    requestMoreThings(Tries, iterations, json);
+});
+var requestMoreThings = function(numberOfTries, iteration, json) { //Request the results
+ var location = $('#location');
+ var btn = $("#searchBtn");
+    $.ajax({
+        url: '/api/yelp',
+        type:'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=UTF-8',
+        data: json,
+        success: function(result){
+            yelpResults = JSON.parse(result);
+            if(yelpResults){
+                $('#home').removeClass("vertical-center");
+                $('#formBtn').addClass("normal-view");
+                $('#logo').addClass("sm-logo");
+                $('#home>div>p').addClass("hide");
+                generateContent(iteration);
+                iterations += 1;
+                $('#results').removeClass("hide");
+                
                 location.prop('disabled', false);
                 btn.prop('disabled', false);
                 btn.text('Search');
+            } else {
+                console.log('No businesses found');
             }
-        });
-    }
-    requestThings(Tries);
-});
+        }
+    }).fail(function(result){
+        console.log('Request #' + numberOfTries);
+        if (numberOfTries < 5){
+            setTimeout(function reqDelay() {
+                console.log('delay'+numberOfTries);
+                requestMoreThings(numberOfTries + 1);
+            }, 500);
+        } else {
+            alert('Trouble connecting to Yelp services, please try another location or try again later.');
+            location.prop('disabled', false);
+            btn.prop('disabled', false);
+            btn.text('Search');
+        }
+    });
+}
 
 //moving screen 2 to 3
 $('#procBtn').bind("click", function(){

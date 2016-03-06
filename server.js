@@ -13,6 +13,7 @@ var SERVER_PORT = process.env.PORT || 3000;
 const YELP_DEFAULTS = {
     BASE_URL: 'https://api.yelp.com/v2/search',
     limit : 20,
+    iteration : 0,
     //sortMode: 1,
     //radiusMeters: 1000,
     dealsBool: false
@@ -22,12 +23,13 @@ var YELP_OPTIONS = YELP_DEFAULTS;
 
 app.use(bodyParser.json());  // is this needed???
 
-app.use('/api', router);  
+app.use('/api', router);
 
 router.post('/yelp', function(req, res) {
     console.log('Request Started');
     var location =  req.body.location;
     var category = req.body.category;
+    YELP_OPTIONS.iteration = req.body.iteration;
     var completeURL = YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS, category, location)
     //console.log(BASE_URL + yelp.buildStr());  // use if the request fails
     //console.log(YELP_OPTIONS);
