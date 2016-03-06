@@ -227,10 +227,11 @@ $('#procBtn').bind("click", function(){
                         results[1] = Object.assign(results[1], object1);
                     }
                     results.forEach(function(business, index){
-                        var risk = (!isNaN(parseInt(business.risk)))? parseFloat(business.risk).toFixed(2) + '%' : 'Insufficient Data :('
+                        var risk = (!isNaN(parseInt(business.risk)))? parseFloat(business.risk).toFixed(2) + '%' : 'Insufficient Data :(';
+                        var src = (business.imgUrl)? business.imgUrl.replace(/ms\.jpg$/i, 'ls.jpg') : business.imgUrl;
                         var card = $('#final-business-'+index);
                             $('.business-name', card).text(business.name);
-                            $('.business-img', card).attr('src', business.imgUrl.replace(/ms\.jpg$/i, 'ls.jpg'));
+                            $('.business-img', card).attr('src', src);
                             $('.business-risk-rate', card).text(risk);
                             $('.business-description', card).text(business.comment);
                             $('.business-star-rating', card).attr('src', business.starsUrl);
@@ -240,7 +241,7 @@ $('#procBtn').bind("click", function(){
                     });
 
                     generateRecommendation(results[0], results[1]);
-                    
+
                     $('.finalBusinesses').fadeIn(3000);
                     $('.finalBusinesses').removeClass("hide");
                 }
