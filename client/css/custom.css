@@ -78,3 +78,19 @@ body{
 #footer {
     text-align: center;
 }
+
+#strtPic {
+    width:200px;
+}
+
+.panel-title {
+    padding-top:0.3em;
+}
+
+.tech {
+    padding-bottom:1em;
+}
+
+.tech > img {
+    width:100%;
+} 

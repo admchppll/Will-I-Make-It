@@ -154,6 +154,7 @@ $("#searchBtn").bind("click", function(){
                 $('#home').removeClass("vertical-center");
                 $('#formBtn').addClass("normal-view");
                 $('#logo').addClass("sm-logo");
+                $('#home>div>p').addClass("hide");
                 generateContent(0);
                 $('#results').removeClass("hide");
             } else {
@@ -238,3 +239,4 @@ function generateRecommendation(bus1, bus2){
         return 'For your safety, we would recommend going for ' + name1 + '. But hey! ' + name2 + ' might be worth the risk ;)';
     }
 };
+
