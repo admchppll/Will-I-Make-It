@@ -20,7 +20,7 @@ body{
 }
 
 #catDrop {
-    max-height: 250px;
+    max-height: 220px;
     overflow-y: auto;
 }
 
