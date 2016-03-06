@@ -1,6 +1,6 @@
 {
   "name": "wigt_hack",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "description": "Compares yelp reviews to car accidents in the area",
   "main": "server.js",
   "scripts": {
