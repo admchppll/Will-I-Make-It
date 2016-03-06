@@ -95,9 +95,7 @@ body{
     text-align: center;
 }
 
-#strtPic {
-    width:200px;
-}
+
 
 .panel-title {
     padding-top:0.3em;
@@ -109,4 +107,25 @@ body{
 
 .tech > img {
     width:100%;
+}
+
+div.c-wrapper{
+    width: 80%; /* for example */
+    margin: auto;
+}
+
+.carousel-inner > .item > img, 
+.carousel-inner > .item > a > img{
+width: 100%; /* use this, or not */
+margin: auto;
+}
+
+#strtPic {
+    height:400px;
+    max-width: 300px;
+    margin 0 auto;
+}
+
+.scndImg {
+    max-width:40px;
 }
