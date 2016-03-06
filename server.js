@@ -5,26 +5,26 @@ var express = require('express'),
     app = express(),
     request = require('request'),
     router = express.Router();
+app.use(express.static('./client'));
 
 var SERVER_PORT = process.env.PORT || 3000;
 
 const YELP_DEFAULTS = {
     BASE_URL: 'https://api.yelp.com/v2/search',
     limit : 20,
-    sortMode: 1,
-    radiusMeters: 1000,
+    //sortMode: 1,
+    //radiusMeters: 1000,
     dealsBool: false
 };
 var YELP_OPTIONS = YELP_DEFAULTS;
 
 
 app.use(bodyParser.json());  // is this needed???
-app.use(express.static('client'));
 
-app.use('/api', router);
+app.use('/api', router);  
 
 router.post('/yelp', function(req, res) {
-    console.log(req.body);
+    console.log('Request Started');
     var location =  req.body.location;
     var category = req.body.category;
     var completeURL = YELP_OPTIONS.BASE_URL + yelp.buildStr(YELP_OPTIONS, category, location)
@@ -38,8 +38,8 @@ router.post('/yelp', function(req, res) {
             res.end('No Businesses Found, get REKT');
             console.log(completeURL);
         } else {
-            console.log("shouldnt get here if 0");
-            res.json(JSON.stringify(yelp.toResults(response)));
+            console.log(response[0]);
+            res.json(JSON.stringify(response));
         }
     });
 

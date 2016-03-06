@@ -16,8 +16,11 @@ function loadCategories() {
 }
 
 function generateResult(id, businessName, imgURL, description) {
+    if (imgURL === undefined) {
+        imgURL = 'https://placeholdit.imgix.net/~text?txtsize=20&txt=215%C3%97215&w=215&h=215';
+    }
     //generates the html content for the results
-    var output = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="bus-' + id + '"><div class="panel panel-danger"><div class="panel-title">';
+    var output = '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" id="bus-' + id + '"><div class="panel panel-danger"><div class="panel-title">';
     output += businessName + '</div><div class="panel-body"><img src="';
     output += imgURL + '"><p>';
     output += description + '</p><button class="btn btn-danger result" id="res-' + id + '"  onclick="addSelected('+id+')">Select</button></div></div></div>';
@@ -37,7 +40,7 @@ function generateContent(iteration){
     for(var i = lowerBound; i < upperBound; i++){
         html += generateResult(i, yelpResults[i].name, yelpResults[i].imgUrl, yelpResults[i].comment);
     }
-
+    
     if(iteration == 0){
         $('#resultContent').html($.parseHTML(html));
     } else {
@@ -79,6 +82,8 @@ function addSelected (id) {
         $('#selected2').text(yelpResults[id].name);
         $('#remove2').removeClass("hide");
         $('#bus-'+(id)).addClass("hide");
+        
+        $("html, body").animate({ scrollTop: 0 }, "slow");
     }
 
 };
@@ -180,6 +185,8 @@ $('#procBtn').bind("click", function(){
                             $('.business-phone', card).text(business.phone);
                             $('.business-yelp-link', card).attr('href', business.url);
                     });
+
+                    generateRecommendation(results[0], results[1]);
                 }
             }
         });
@@ -191,6 +198,25 @@ $('#procBtn').bind("click", function(){
 $('#back').bind("click", function(){
     $('#final').addClass("hide");
     $("#results").removeClass("hide")
-})
+});
 
+function generateRecommendation(bus1, bus2){
+    var bus1Riskier, line;
+
+    if(Math.abs(bus1.risk - bus2.risk) < 5 && bus1.risk > 70) {
+        line = 'Oh golly! Looks like the odds aren\'t too good. Why not try <a href="http://www.just-eat.co.uk/area/'+ bus1.address[bus1.address.length-2].split(' ').splice(1,2).join('') +'" target="_blank">take away</a> instead?';
+    } else {
+        bus1Riskier = (bus1.risk > bus2.risk);
+        line = generateLine(
+            (bus1Riskier)? bus2.name : bus1.name,
+            (!bus1Riskier)? bus2.name : bus1.name
+        );
+    }
+
+    $('#recommendation').html(line);
+
+    function generateLine(name1, name2){
+        return 'For your safety, we would recommend going for ' + name1 + '. But hey! ' + name2 + ' might be worth the risk ;)';
+    }
+};
 
