@@ -95,7 +95,7 @@ function updateInstructions(str, stage) {
     var detail = '';
     switch(stage){
         case 1: header = 'Choose Businesses';
-                detail = 'Select two of the local businesses below and hit proceed to see if you will make it! You can change your selection anytime before the comparison, just use the remove button.';
+                    detail = 'Select two of the local businesses below and hit proceed to see if you will make it! You can change your selection anytime before the comparison, just use the remove button.';
             break;
         case 2: header = 'All done?';
                 detail = 'What are you waiting for, click proceed!';
