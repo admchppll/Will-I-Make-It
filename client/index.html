@@ -11,7 +11,7 @@
 <body scrollable onload="loadCategories()">
 <div id="home" class="container-fluid vertical-center">
     <div class="container">
-        <a href="."><img id="logo" src="logo.png"></a>
+        <a href="." onclick="javascript:if($('#location').val()){return confirm('Are you sure you want to refresh?')}"><img id="logo" src="logo.png"></a>
         <p>Ever wondered the risk of going out somewhere? Choose you location now and find out how at risk you are!</p>
         <form>
         <div class="input-group col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
@@ -33,9 +33,9 @@
     <div class="container">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="panel panel-danger ">
-                <div class="panel-body">
-                    <h1>Choose Businesses</h1>
-                    <p>Select 2 of the businesses below and then press the confirm at the bottom of the page to see the results of the comparison. You can change your selection at any point before the comparison. Feel free to go back and search again for another location.</p>
+                <div id="instructionPanel" class="panel-body">
+                    <h1 id="instructionPanelHeader">Choose Businesses</h1>
+                    <p id="instructionPanelDetail">Select two of the local businesses below and hit proceed to see if you will make it! You can change your selection anytime before the comparison, just use the remove button.</p>
                 </div>
             </div>
         </div>

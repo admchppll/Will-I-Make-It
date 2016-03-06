@@ -2,7 +2,9 @@ var yelpResults;
 var cdlResults;
 
 var object1 = null, object2 = null; //Storing the 2 businesses selected
-
+$(document).ready(function() {
+    updateInstructions('stage', 1)
+})
 function loadCategories() {
     var temp = "";
     $.getJSON("categories.json", function(data) {
@@ -84,11 +86,28 @@ function addSelected (id) {
         $('#bus-'+(id)).addClass("hide");
         
         $("html, body").animate({ scrollTop: 0 }, "slow");
+        updateInstructions('stage', 2);
     }
-
 };
 
+function updateInstructions(str, stage) {
+    var header = '';
+    var detail = '';
+    switch(stage){
+        case 1: header = 'Choose Businesses';
+                detail = 'Select two of the local businesses below and hit proceed to see if you will make it! You can change your selection anytime before the comparison, just use the remove button.';
+            break;
+        case 2: header = 'All done?';
+                detail = 'What are you waiting for, click proceed!';
+            break;
+    }
+    
+    $('#instructionPanelHeader').text(header);
+    $('#instructionPanelDetail').text(detail);
+}
+
 function removeSelected(object) {
+    updateInstructions('stage', 1);
     if (object === 1) {
         $('#bus-'+object1.id).removeClass("hide");
         object1 = null;
@@ -121,6 +140,7 @@ $("#searchBtn").bind("click", function(){
     var location = $('#location').val();
     var category = $('.activeCat').attr("id");
     var json = '{"location":"' + location + '", "category":"' + category + '"}';
+    updateInstructions('stage', 1);
     console.log(json); //TODO: Remove when finished
     $.ajax({
         url: '/api/yelp',

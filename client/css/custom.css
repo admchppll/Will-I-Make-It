@@ -55,6 +55,7 @@ body{
 
 .removeSelect{
     display: inline;
+    float:right;
 }
 
 #selected1, #selected2 {
