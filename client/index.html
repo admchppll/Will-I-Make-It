@@ -11,11 +11,13 @@
 <body scrollable onload="loadCategories()">
 <div id="home" class="container-fluid vertical-center">
     <div class="container">
-        <a href="." onclick="javascript:if($('#location').val()){return confirm('Are you sure? You will lose data you have entered.')}"><img id="logo" src="logo.png"></a>
-        <h3>Travelling can be dangerous... but not if we can help you!</h3>
-        <form>
+        <a href="." onclick="javascript:if($('#location').val()){return confirm('Are you sure? You will lose data you have entered.')}">
+            <img id="logo" src="logo.png" style="margin-bottom:10px;">
+        </a>
+        <h3>Travelling somewhere new can be dangerous... not if we can help it!</h3>
+        <form onsubmit="javascript:return false;">
         <div class="input-group col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-            <input type="text" class="form-control" id="location" placeholder="Enter your location here...">
+            <input type="text" type="button" class="form-control" id="location" placeholder="Enter your location here...">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="catBtn">Categories <span class="caret"></span></button>
                 <ul class="dropdown-menu dropdown-menu-right" id="catDrop">
@@ -35,9 +37,9 @@
             <div class="panel panel-danger ">
                 <div id="instructionPanel" class="panel-body">
                     <h1 id="instructionPanelHeader">Choose Businesses</h1>
-                    <p id="instructionPanelDetail">Select two of the local businesses below and hit proceed to see if you will make it! You can change your selection anytime before the comparison, just use the remove button.</p>
+                    <p id="instructionPanelDetail">Select two of the local businesses below and hit proceed to see the chance to make it! You can change your selection anytime before the comparison, just use the remove button.</p>
                 </div>
-            </div>
+            </div>t
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 selectedBusiness">
             <div class="panel panel-danger ">

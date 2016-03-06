@@ -5,6 +5,7 @@ var express = require('express'),
     app = express(),
     request = require('request'),
     router = express.Router();
+    
 app.use(express.static('./client'));
 
 var SERVER_PORT = process.env.PORT || 3000;

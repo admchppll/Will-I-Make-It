@@ -3,7 +3,12 @@ var cdlResults;
 
 var object1 = null, object2 = null; //Storing the 2 businesses selected
 $(document).ready(function() {
-    updateInstructions('stage', 1)
+    updateInstructions('stage', 1);
+    $('#location').keyup(function(event){
+        if (event.keyCode == 13) {
+            $('#searchBtn').click();
+        }
+    })
 })
 function loadCategories() {
     var temp = "";
@@ -137,34 +142,57 @@ function switchCat(id){
 
 //show screen 2 now
 $("#searchBtn").bind("click", function(){
-    var location = $('#location').val();
+    var location = $('#location');
     var category = $('.activeCat').attr("id");
-    var json = '{"location":"' + location + '", "category":"' + category + '"}';
+    var json = '{"location":"' + location.val() + '", "category":"' + category + '"}';
     updateInstructions('stage', 1);
-    console.log(json); //TODO: Remove when finished
-    $.ajax({
-        url: '/api/yelp',
-        type:'POST',
-        dataType: 'json',
-        contentType: 'application/json; charset=UTF-8',
-        data: json,
-        success: function(result){
-            yelpResults = JSON.parse(result);
-            if(yelpResults){
-                $('#home').removeClass("vertical-center");
-                $('#formBtn').addClass("normal-view");
-                $('#logo').addClass("sm-logo");
-                $('#home>div>p').addClass("hide");
-                generateContent(0);
-                $('#results').removeClass("hide");
-            } else {
-                console.log('No businesses found');
+    var Tries = 0;
+    var btn = $(this);
+    location.prop('disabled', true);
+    btn.prop('disabled', true);
+    btn.text('Searching...');
+    
+    //console.log(json); //TODO: Remove when finished
+    var requestThings = function(numberOfTries) {
+        $.ajax({
+            url: '/api/yelp',
+            type:'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=UTF-8',
+            data: json,
+            success: function(result){
+                yelpResults = JSON.parse(result);
+                if(yelpResults){
+                    $('#home').removeClass("vertical-center");
+                    $('#formBtn').addClass("normal-view");
+                    $('#logo').addClass("sm-logo");
+                    $('#home>div>p').addClass("hide");
+                    generateContent(0);
+                    $('#results').removeClass("hide");
+                    
+                    location.prop('disabled', false);
+                    btn.prop('disabled', false);
+                    btn.text('Search');
+                } else {
+                    console.log('No businesses found');
+                }
             }
-        }, fail: function(result) {
-            //TODO: signal to user to repeat input, preferably without the alert
-            alert('omgno :( request failed)');
-        }
-    });
+        }).fail(function(result){
+            console.log('Request #' + numberOfTries);
+            if (numberOfTries < 5){
+                setTimeout(function reqDelay() {
+                    console.log('delay'+numberOfTries);
+                    requestThings(numberOfTries + 1);
+                }, 300);
+            } else {
+                alert('Trouble connecting to Yelp services, please try another location or try again later.');
+                location.prop('disabled', false);
+                btn.prop('disabled', false);
+                btn.text('Search');
+            }
+        });
+    }
+    requestThings(Tries);
 });
 
 //moving screen 2 to 3
