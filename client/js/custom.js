@@ -252,10 +252,10 @@ function generateRecommendation(bus1, bus2){
     var bus1Riskier, line;
 
     if(Math.abs(bus1.risk - bus2.risk) < 5 && bus1.risk > 70) {
-        line = 'Oh golly! Looks like the odds aren\'t too good. Why not try <a href="http://www.just-eat.co.uk/area/'+ bus1.address[bus1.address.length-2].split(' ').splice(1,2).join('') +'" target="_blank">take away</a> instead?';
+        line = 'Oh golly! Looks like the odds aren\'t too good. Why not try a <a href="http://www.just-eat.co.uk/area/'+ bus1.address[bus1.address.length-2].split(' ').splice(1,2).join('') +'" target="_blank">takeaway</a> instead?';
     } else {
         if(Math.abs(bus1.risk - bus2.risk) < 1) {
-            line = 'Seems like the odds are the same, if not close to. <a href="https://www.google.co.uk/webhp?hl=en#hl=en&q=flip+a+coin" target="_blank">Flip a coin</a>?';
+            line = 'Seems like we are in abit of pickle, both venues pose similar risk. <a href="https://www.google.co.uk/webhp?hl=en#hl=en&q=flip+a+coin" target="_blank">Flip a coin</a>?';
         } else {
             bus1Riskier = (bus1.risk > bus2.risk);
             line = generateLine(

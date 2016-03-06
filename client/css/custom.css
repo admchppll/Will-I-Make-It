@@ -87,15 +87,16 @@ body{
     padding-top:0.6em;
 }
 
+@media screen and (max-width: 768px){
+    #logo {
+        max-width:350px;
+        padding-top:0.6em;
+    }
+}
+
 #back {
     margin-bottom: 2em;
 }
-
-#footer {
-    text-align: center;
-}
-
-
 
 .panel-title {
     padding-top:0.3em;
@@ -128,4 +129,15 @@ margin: auto;
 
 .scndImg {
     max-width:40px;
+}
+
+#affix{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+#affix>a {
+    color:#d43f3a;
 }
