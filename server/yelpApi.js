@@ -26,7 +26,7 @@ function buildRequest(options, category, addressString, offset ){
         requestParams.term = category;
     }
     
-    requestParams.offset = options.iteration * 20;
+    //requestParams.offset = options.iteration;
     //console.log(options, category, addressString, offset);
     //requestParams.limit = options.limit;
     //requestParams.sortMode = options.sortMode;
