@@ -1,8 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
+*{
+    font-family: 'Lato', sans-serif;
+}
+
 body{
     max-height:100vh;
     background-image: url('map-1.jpg');
     background-size:cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
@@ -13,13 +19,18 @@ body{
   align-items: center;
 }
 
+#catDrop {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
 #searchBtn {
     background-color: #d43f3a;
     color:#fff;
 }
 
 .normal-view {
-    padding-bottom: 2em;  
+    padding-bottom: 2em;
 }
 
 #home {
@@ -41,6 +52,10 @@ body{
 
 .panel-title {
     font-weight: bold;
+}
+
+.business-description-small {
+    height: 100px;
 }
 
 .panel-body>img, business>img {
@@ -93,4 +108,4 @@ body{
 
 .tech > img {
     width:100%;
-} 
+}
