@@ -240,12 +240,8 @@ $('#procBtn').bind("click", function(){
                     });
 
                     generateRecommendation(results[0], results[1]);
-<<<<<<< HEAD
                     
                     $('.finalBusinesses').fadeIn(3000);
-=======
-
->>>>>>> origin/develop
                     $('.finalBusinesses').removeClass("hide");
                 }
             }
