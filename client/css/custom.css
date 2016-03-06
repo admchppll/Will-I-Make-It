@@ -147,3 +147,7 @@ margin: auto;
 #affix>a {
     color:#d43f3a;
 }
+
+#gif {
+    max-width: 100px;
+}

@@ -140,7 +140,7 @@ function switchCat(id){
     $('#catBtn').html($.parseHTML(temp));
 }
 
-//show screen 2 now
+//show scr
 $("#searchBtn").bind("click", function(){
     var location = $('#location');
     if (location.val()) {
@@ -202,7 +202,9 @@ $('#procBtn').bind("click", function(){
     var json = "";
 
     if(object1 != null && object2 != null){
+        $('#results').fadeOut("slow");
         $('#results').addClass("hide");
+        $('#final').fadeIn('slow');
         $('#final').removeClass('hide');
 
         json = '[{"ID":' + object1.id + ', "lat":"' + object1.lat + '", "lon":"' + object1.lon + '"},';
@@ -238,6 +240,7 @@ $('#procBtn').bind("click", function(){
 
                     generateRecommendation(results[0], results[1]);
                     
+                    $('.finalBusinesses').fadeIn(3000);
                     $('.finalBusinesses').removeClass("hide");
                 }
             }
@@ -248,7 +251,9 @@ $('#procBtn').bind("click", function(){
 });
 
 $('#back').bind("click", function(){
+    $('#final').fadeOut(3000);
     $('#final').addClass("hide");
+    $('#results').fadeIn(3000);
     $("#results").removeClass("hide")
 });
 
