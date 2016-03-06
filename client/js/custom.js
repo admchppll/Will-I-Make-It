@@ -106,7 +106,7 @@ function updateInstructions(str, stage) {
                 detail = 'What are you waiting for, click proceed!';
             break;
     }
-    
+
     $('#instructionPanelHeader').text(header);
     $('#instructionPanelDetail').text(detail);
 }
@@ -152,7 +152,7 @@ $("#searchBtn").bind("click", function(){
         location.prop('disabled', true);
         btn.prop('disabled', true);
         btn.text('Searching...');
-        
+
         //console.log(json); //TODO: Remove when finished
         var requestThings = function(numberOfTries) {
             $.ajax({
@@ -170,7 +170,7 @@ $("#searchBtn").bind("click", function(){
                         $('#home>div>p').addClass("hide");
                         generateContent(0);
                         $('#results').removeClass("hide");
-                        
+
                         location.prop('disabled', false);
                         btn.prop('disabled', false);
                         btn.text('Search');
@@ -227,10 +227,11 @@ $('#procBtn').bind("click", function(){
                         results[1] = Object.assign(results[1], object1);
                     }
                     results.forEach(function(business, index){
+                        var risk = (!isNaN(parseInt(business.risk)))? parseFloat(business.risk).toFixed(2) + '%' : 'Insufficient Data :('
                         var card = $('#final-business-'+index);
                             $('.business-name', card).text(business.name);
                             $('.business-img', card).attr('src', business.imgUrl.replace(/ms\.jpg$/i, 'ls.jpg'));
-                            $('.business-risk-rate', card).text(parseFloat(business.risk).toFixed(2) + '%');
+                            $('.business-risk-rate', card).text(risk);
                             $('.business-description', card).text(business.comment);
                             $('.business-star-rating', card).attr('src', business.starsUrl);
                             $('.business-address', card).html(business.address.join('<br/>'));
@@ -239,8 +240,12 @@ $('#procBtn').bind("click", function(){
                     });
 
                     generateRecommendation(results[0], results[1]);
+<<<<<<< HEAD
                     
                     $('.finalBusinesses').fadeIn(3000);
+=======
+
+>>>>>>> origin/develop
                     $('.finalBusinesses').removeClass("hide");
                 }
             }

@@ -5,7 +5,7 @@ var express = require('express'),
     app = express(),
     request = require('request'),
     router = express.Router();
-    
+
 app.use(express.static('./client'));
 
 var SERVER_PORT = process.env.PORT || 3000;
@@ -22,7 +22,7 @@ var YELP_OPTIONS = YELP_DEFAULTS;
 
 app.use(bodyParser.json());  // is this needed???
 
-app.use('/api', router);  
+app.use('/api', router);
 
 router.post('/yelp', function(req, res) {
     console.log('Request Started');
@@ -55,8 +55,8 @@ router.post('/cdl', function (req, res) {
         res.writeHead(200, {'Content-Type': 'application/json'});
         console.log('Sent data to CDL...');
         cdlApi(locations).then(function(data){
-            console.log(data);
-            console.log(locations);
+            console.log('Data', data);
+            console.log('Locations', locations);
             var results = locations.map(function(location){
                 for(var idx in data){
                     if(location.ID == data[idx].ID){
